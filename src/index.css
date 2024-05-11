@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  padding: 0;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #1d1e20;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.scrollbar {
+  height: 300px;
+  width: 50%;
+  overflow: auto;
+  padding: 0 10px;
+}
+
+.scrollbar1::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scrollbar1::-webkit-scrollbar-track {
+  
+  background-color: #2a2b2e;
+  border: 1px solid #2a2b2e;
+}
+
+.scrollbar1::-webkit-scrollbar-thumb {
+  
+  border: 1px solid transparent;
+  background-clip: content-box;
+  background-color: #1e1f21;
+}
