@@ -10,7 +10,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #1d1e20;
+  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -40,4 +40,8 @@
   border: 1px solid transparent;
   background-clip: content-box;
   background-color: #1e1f21;
+}
+
+.input, .textarea {
+  background-color: #2e3033;
 }
