@@ -7,17 +7,7 @@
     "curso": "5 medio",
     "RBD": "nose",
     "nombreDirector": "no me acuerdo",
-    "establecimiento": "liceo tpch",
-    "opcionEducativa": {
-      "escuelaEspecial": false,
-      "PIE": false,
-      "otra": ""
-    },
-    "viaComunicacion": {
-      "oral": false,
-      "lenguaSenas": false,
-      "otra": ""
-    }
+    "establecimiento": "liceo tpch"
   },
   "profesional": {
     "RUT": "",
