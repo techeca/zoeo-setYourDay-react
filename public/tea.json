@@ -1,22 +1,23 @@
 {
+  "nombreDocumento": "Trastorno del Espectro Autista",
   "datosIdentificacion": {
     "nombreCompleto": "Jim pablo vasquez campusano",
     "fechaNacimiento": "27/02/1992",
     "edad": "27a 5m",
     "RUN": "180142207",
-    "curso": "5 medio",
+    "curso": "",
     "RBD": "nose",
     "nombreDirector": "no me acuerdo",
     "establecimiento": "liceo tpch"
   },
   "profesional": {
-    "RUT": "",
-    "cargo": "",
-    "fono": "",
-    "fecha": "",
-    "emailProfesional": "",
-    "profesion": "Psicopedagoga",
-    "nombreCompleto": ""
+    "RUT": "180142207",
+    "profesionpro": "Psicopedagoga",
+    "cargo": "Jefa",
+    "fono": "15236490",
+    "fecha": "25/25/2525",
+    "email": "email@email.com",
+    "nombreProfesional": "elizabeth andrea cortes cortes"
   },
   "diagnostico": {
     "fechaEmision": "",

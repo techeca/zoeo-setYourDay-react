@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+/** @type {import('rippleui').Config} */
 import rippleui from 'rippleui'
 export default {
   content: [
