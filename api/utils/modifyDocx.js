@@ -25,7 +25,7 @@ function extractCheckboxes(docXml) {
 
         // Modificar el atributo w:val a cadena vacía ('')
         if(i === 9 || i === 10){
-         checkedElement.setAttribute('w:val', '0');   //0:desactivado //1:activado
+          checkedElement.setAttribute('w:val', '0');   //0:desactivado //1:activado
         }else{
           checkedElement.setAttribute('w:val', '1'); 
         }
@@ -117,12 +117,12 @@ export const modifyDocxContent = async (templatePath, outputPath, jsonPath) => {
       rbd: datosIdentificacion.RBD,
       nombreDirector: datosIdentificacion.nombreDirector,
 
-      NOMBREPROFESIONAL: profesional.nombreCompleto,
+      NOMBREPROFESIONAL: profesional.nombreProfesional,
       rutpro: profesional.RUT,
-      Profesionpro: profesional.profesion,
+      Profesionpro: profesional.profesionpro,
       Cargopro: profesional.cargo,
       fonopro: profesional.fono,
-      emailpro: profesional.Profesional,
+      emailpro: profesional.email,
       fechapro: profesional.fecha,
 
       DiagnosticoObservaciones: diagnostico.observaciones,

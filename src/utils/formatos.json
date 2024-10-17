@@ -1,0 +1,181 @@
+{
+"TEA":{
+    "nombreDocumento": "Trastorno del Espectro Autista",
+    "datosIdentificacion": {
+      "nombreCompleto": "",
+      "fechaNacimiento": "",
+      "edad": "",
+      "RUN": "",
+      "curso": "",
+      "RBD": "",
+      "nombreDirector": "",
+      "establecimiento": ""
+    },
+    "profesional": {
+      "RUT": "",
+      "profesion": "",
+      "cargo": "",
+      "fono": "",
+      "fecha": "",
+      "email": "",
+      "nombreProfesional": ""
+    },
+    "diagnostico": {
+      "fechaEmision": "",
+      "observaciones": "",
+      "transtornoEspectroAutista": false,
+      "transtornoGeneralizadoDesarrolloEspec": false,
+      "transtornoAperger": false,
+      "cambiosEnDiagnostico": false,
+      "indicacionesModificacionesDiagnostico": ""
+    },
+    "documentos": {
+      "numeroDocumento": "",
+      "pautaObservacion": false,
+      "obsContextoExcolar": false,
+      "certificadosProtocolosInformes": {
+        "escolar": false,
+        "social": false,
+        "neurologico": false,
+        "psicologico": false,
+        "fonoaudiologico": false,
+        "evaPedagogica": false,
+        "psicopedagogica": false,
+        "valoracionSalud": false,
+        "examenMedicoEspecialista": false,
+        "otros": false
+      },
+      "examenMedicoEspecialista": "",
+      "otros": ""
+    },
+    "revaluacion": {
+      "interaccionSocial": {
+        "progresos": "",
+        "aspectosEnfasis": "",
+        "fuentesInformacion": {
+          "entrevistaFamilia": false,
+          "obsContextoEscolar": false,
+          "aplicacionInstrumento": false
+        },
+        "obsContextoEscolar": "",
+        "aplicacionInstrumento": ""
+      },
+      "lenguajeComunicacion": {
+        "progresos": "",
+        "aspectosEnfasis": "",
+        "fuentesInformacion": {
+          "entrevistaFamilia": false,
+          "obsContextoEscolar": false,
+          "aplicacionInstrumento": false
+        },
+        "obsContextoEscolar": "",
+        "aplicacionInstrumento": ""
+      },
+      "cognitiva": {
+        "progresos": "",
+        "aspectosEnfasis": "",
+        "fuentesInformacion": {
+          "entrevistaFamilia": false,
+          "obsContextoEscolar": false,
+          "aplicacionInstrumento": false
+        },
+        "obsContextoEscolar": "",
+        "aplicacionInstrumento": ""
+      },
+      "procesamientoSensorial": {
+        "progresos": "",
+        "aspectosEnfasis": "",
+        "fuentesInformacion": {
+          "entrevistaFamilia": false,
+          "obsContextoEscolar": false,
+          "aplicacionInstrumento": false
+        },
+        "obsContextoEscolar": "",
+        "aplicacionInstrumento": ""
+      },
+      "motora": {
+        "progresos": "",
+        "aspectosEnfasis": "",
+        "fuentesInformacion": {
+          "entrevistaFamilia": false,
+          "obsContextoEscolar": false,
+          "aplicacionInstrumento": false
+        },
+        "obsContextoEscolar": "",
+        "aplicacionInstrumento": ""
+      },
+      "academicaFuncional": {
+        "aprendizajeLogrado": "",
+        "aprendizajeNoLogrado": "",
+        "logrosRelevantes": "",
+        "fuentesInformacion": {
+          "entrevistaFamilia": false,
+          "obsContextoEscolar": false,
+          "aplicacionInstrumento": false
+        },
+        "obsContextoEscolar": "",
+        "aplicacionInstrumento": ""
+      },
+      "desempenoPersonalSocial": {
+        "progresos": "",
+        "aspectosEnfasis": "",
+        "fuentesInformacion": {
+          "entrevistaFamilia": false,
+          "obsContextoEscolar": false,
+          "aplicacionInstrumento": false
+        },
+        "obsContextoEscolar": "",
+        "aplicacionInstrumento": ""
+      },
+      "contextFamiliarSocial": {
+        "progresos": "",
+        "aspectosEnfasis": "",
+        "fuentesInformacion": {
+          "entrevistaFamilia": false,
+          "obsContextoEscolar": false,
+          "aplicacionInstrumento": false
+        },
+        "obsContextoEscolar": "",
+        "aplicacionInstrumento": ""
+      }
+    },
+    "evaluacionApoyos": {
+      "personales": {
+        "efectividad": "",
+        "observaciones": "",
+        "continuidad": false
+      },
+      "curriculares": {
+        "efectividad": "",
+        "observaciones": "",
+        "continuidad": false
+      },
+      "mediosRecursosMateriales": {
+        "efectividad": "",
+        "observaciones": "",
+        "continuidad": false
+      },
+      "organizativos": {
+        "efectividad": "",
+        "observaciones": "",
+        "continuidad": false
+      },
+      "familiares": {
+        "efectividad": "",
+        "observaciones": "",
+        "continuidad": false
+      },
+      "otrosApoyos": {
+        "efectividad": "",
+        "observaciones": "",
+        "continuidad": false
+      },
+      "estrategias": {
+        "descripcion": "",
+        "efectividad": ""
+      },
+      "nuevosApoyos": "",
+      "comentarios": ""
+    }
+  }
+}

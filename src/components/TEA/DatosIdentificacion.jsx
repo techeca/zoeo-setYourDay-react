@@ -1,8 +1,8 @@
 import { handleUpdateDocument } from "../../utils/requests";
 
-export default function DatosIdentificacion({ profesional, newPro }) {
+export default function DatosIdentificacion({ profesional, newPro, documentSelected }) {
 
-    const { value, setValue, setData } = newPro
+    const { value, setValue, update } = newPro
 
     function updateNewProfesional(e) {
         e.preventDefault()
@@ -15,11 +15,12 @@ export default function DatosIdentificacion({ profesional, newPro }) {
     //Las funciones addOtro y removeOtro son para agregar o quitar los profesionales que trabajan en el documento.
     // Agrega un profesional a la lista
     const addOtro = () => {
-        setData(prevData => ({
+
+        update(prevData => ({
             ...prevData,
             profesional: {
                 ...prevData.profesional,
-                otros: [...prevData.profesional.otros, value]
+                otros: prevData.profesional?.otros ? [...prevData.profesional.otros, value] : [value]
             }
         }));
         setValue({
@@ -32,7 +33,7 @@ export default function DatosIdentificacion({ profesional, newPro }) {
 
     // Elimina al profesional seleccionado
     const removeOtro = (index) => {
-        setData(prevData => ({
+        update(prevData => ({
             ...prevData,
             profesional: {
                 ...prevData.profesional,
@@ -41,17 +42,16 @@ export default function DatosIdentificacion({ profesional, newPro }) {
         }));
     };
 
-
     function updateDocument(e, key) {
         e.preventDefault()
         let texto = {}
         //Actualiza el texto creando una key por cada input y le asigna el value del mismo
         //esto es para reutilizar esta funcion con los diferentes formularios
         for (let index = 0; index < e.target.length; index++) {
-          texto[e.target[index].id] = e.target[index].value
+            texto[e.target[index].id] = e.target[index].value
         }
         handleUpdateDocument(key, documentSelected, texto)
-      }
+    }
 
     return (
         <div className="accordion">
@@ -64,36 +64,36 @@ export default function DatosIdentificacion({ profesional, newPro }) {
                     <form onSubmit={(e) => updateDocument(e, 'datosIdentificacion')} className="space-y-4 mt-2 mb-6 px-1">
                         <div className="w-full">
                             <label className="sr-only" htmlFor="nombreCompleto">Nombre Completo</label>
-                            <input className="input input-solid max-w-full uppercase" placeholder="Nombre Completo" maxLength={28} type="text" id="nombreCompleto" />
+                            <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 max-w-full placeholder:text-gray-9 uppercase" placeholder="Nombre Completo" maxLength={28} type="text" id="nombreCompleto" />
                         </div>
 
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
                                 <label className="sr-only" htmlFor="fechaNacimiento">Fecha de Nacimiento</label>
-                                <input className="input input-solid" placeholder="FECHA DE NACIMIENTO (dd/mm/aaaa)" maxLength={10} type="text" id="fechaNacimiento" />
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-9" placeholder="FECHA DE NACIMIENTO (dd/mm/aaaa)" maxLength={10} type="text" id="fechaNacimiento" />
                             </div>
 
                             <div>
                                 <label className="sr-only" htmlFor="edad">Edad</label>
-                                <input className="input input-solid uppercase" placeholder="Edad" maxLength={8} type="text" id="edad" />
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-9 uppercase" placeholder="Edad" maxLength={8} type="text" id="edad" />
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
                                 <label className="sr-only" htmlFor="RUN">RUN</label>
-                                <input className="input input-solid" placeholder="RUN" type="text" maxLength={9} id="RUN" />
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-9" placeholder="RUN" type="text" maxLength={9} id="RUN" />
                             </div>
 
                             <div>
                                 <label className="sr-only" htmlFor="curso">Curso</label>
-                                <input className="input input-solid uppercase" placeholder="CURSO" maxLength={11} type="text" id="curso" />
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-9 uppercase" placeholder="CURSO" maxLength={11} type="text" id="curso" />
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div id="group1" className="flex flex-col gap-3 items-center">
-                                <label className="self-start" htmlFor="RUN">Opción Educativa:</label>
+                                <label className="self-start" htmlFor="group1">Opción Educativa:</label>
                                 <div className='flex gap-3 w-full'>
                                     <label className="flex cursor-pointer gap-2">
                                         <input type="radio" className="radio" name="group1" />
@@ -109,7 +109,7 @@ export default function DatosIdentificacion({ profesional, newPro }) {
                                         <input type="radio" className="radio" name="group1" />
                                         <span>Otra</span>
                                     </label>
-                                    <input className="input input-solid uppercase" placeholder="" maxLength={11} type="text" id="curso" />
+                                    <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none placeholder:text-gray-9 pl-3 uppercase" placeholder="" maxLength={11} type="text" id="curso" />
                                 </div>
 
                             </div>
@@ -131,7 +131,7 @@ export default function DatosIdentificacion({ profesional, newPro }) {
                                         <input type="radio" className="radio" name="group2" />
                                         <span>Otra</span>
                                     </label>
-                                    <input className="input input-solid uppercase" placeholder="" maxLength={11} type="text" id="curso" />
+                                    <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none placeholder:text-gray-9 pl-3 uppercase" placeholder="" maxLength={11} type="text" id="curso" />
                                 </div>
 
                             </div>
@@ -140,19 +140,19 @@ export default function DatosIdentificacion({ profesional, newPro }) {
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
                                 <label className="sr-only" htmlFor="establecimiento">Establecimiento</label>
-                                <input className="input input-solid uppercase" placeholder="ESTABLECIMIENTO" maxLength={26} type="text" id="establecimiento" />
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-9 uppercase" placeholder="ESTABLECIMIENTO" maxLength={26} type="text" id="establecimiento" />
                             </div>
 
                             <div>
                                 <label className="sr-only" htmlFor="RBD">RBD</label>
-                                <input className="input input-solid capitalize" placeholder="RBD" type="text" id="RBD" maxLength={9} />
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 capitalize placeholder:text-gray-9" placeholder="RBD" type="text" id="RBD" maxLength={9} />
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
                                 <label className="sr-only" htmlFor="nombreDirector">Nombre de Director</label>
-                                <input className="input input-solid uppercase" placeholder="Nombre de Director/a" type="text" maxLength={23} id="nombreDirector" />
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 uppercase placeholder:text-gray-9" placeholder="Nombre de Director/a" type="text" maxLength={23} id="nombreDirector" />
                             </div>
                         </div>
 
@@ -165,47 +165,47 @@ export default function DatosIdentificacion({ profesional, newPro }) {
                     <form onSubmit={(e) => updateDocument(e, 'profesional')} className="space-y-4 mt-2">
                         <div className="w-full">
                             <label className="sr-only" htmlFor="nombreProfesional">Nombre Completo</label>
-                            <input className="input input-solid max-w-full uppercase" placeholder="Nombre Completo" maxLength={61} type="text" id="nombreProfesional" />
+                            <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none placeholder:text-gray-9 max-w-full uppercase" placeholder="Nombre Completo" maxLength={61} type="text" id="nombreProfesional" />
                         </div>
 
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
                                 <label className="sr-only" htmlFor="RUT">RUT</label>
-                                <input className="input input-solid" placeholder="RUT" maxLength={9} type="text" id="RUT" />
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none placeholder:text-gray-9" placeholder="RUT" maxLength={9} type="text" id="RUT" />
                             </div>
 
                             <div>
-                                <label className="sr-only" htmlFor="profesion">Profesión o Especialidad</label>
-                                <input className="input input-solid capitalize" placeholder="Profesión o Especialidad" maxLength={40} type="text" id="profesion" />
+                                <label className="sr-only" htmlFor="profesionpro">Profesión o Especialidad</label>
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none placeholder:text-gray-9 capitalize" placeholder="Profesión o Especialidad" maxLength={40} type="text" id="profesionpro" />
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
                                 <label className="sr-only" htmlFor="cargo">CARGO</label>
-                                <input className="input input-solid capitalize" placeholder="CARGO" type="text" maxLength={30} id="cargo" />
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none placeholder:text-gray-9 capitalize" placeholder="CARGO" type="text" maxLength={30} id="cargo" />
                             </div>
 
                             <div>
                                 <label className="sr-only" htmlFor="fono">Fono de Contacto</label>
-                                <input className="input input-solid" placeholder="Fono Contacto" maxLength={11} type="text" id="fono" />
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none placeholder:text-gray-9" placeholder="Fono Contacto" maxLength={11} type="text" id="fono" />
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                             <div>
-                                <label className="sr-only" htmlFor="emailProfesional">Email de Contacto</label>
-                                <input className="input input-solid" placeholder="Email de Contacto" maxLength={60} type="text" id="emailProfesional" />
+                                <label className="sr-only" htmlFor="email">Email de Contacto</label>
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none placeholder:text-gray-9" placeholder="Email de Contacto" maxLength={60} type="text" id="email" />
                             </div>
 
                             <div>
                                 <label className="sr-only" htmlFor="fecha">Fecha</label>
-                                <input className="input input-solid" placeholder="FECHA" type="text" id="fecha" maxLength={10} />
+                                <input className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none placeholder:text-gray-9" placeholder="FECHA" type="text" maxLength={10} id="fecha" />
                             </div>
                         </div>
 
 
-                        {profesional && profesional.otros.length > 0 ?
+                        {profesional && profesional?.otros?.length > 0 ?
 
                             profesional.otros.map((item, index) =>
                                 <div key={index} className='flex items-center gap-3'>
@@ -224,6 +224,7 @@ export default function DatosIdentificacion({ profesional, newPro }) {
                             <button className="btn btn-solid-error" type='submit' disabled={false}>Guardar</button>
                             <label className="btn btn-solid-secondary" htmlFor="modal-1">Agregar otro Profesional</label>
                             <input className="modal-state" id="modal-1" type="checkbox" />
+                            
                             <div className="modal">
                                 <label className="modal-overlay" htmlFor="modal-1"></label>
                                 <div className="modal-content flex flex-col gap-5">
