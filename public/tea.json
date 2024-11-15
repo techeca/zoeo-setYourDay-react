@@ -1,23 +1,30 @@
 {
   "nombreDocumento": "Trastorno del Espectro Autista",
   "datosIdentificacion": {
-    "nombreCompleto": "Jim pablo vasquez campusano",
-    "fechaNacimiento": "27/02/1992",
-    "edad": "27a 5m",
-    "RUN": "180142207",
+    "nombreCompleto": "",
+    "fechaNacimiento": "",
+    "edad": "",
+    "RUN": "",
     "curso": "",
-    "RBD": "nose",
-    "nombreDirector": "no me acuerdo",
-    "establecimiento": "liceo tpch"
+    "RBD": "",
+    "nombreDirector": "",
+    "establecimiento": "",
+    "4": false,
+    "5": false,
+    "OEotra": "",
+    "8": false,
+    "9": false,
+    "10": false,
+    "VCotra": ""
   },
   "profesional": {
-    "RUT": "180142207",
-    "profesionpro": "Psicopedagoga",
-    "cargo": "Jefa",
-    "fono": "15236490",
-    "fecha": "25/25/2525",
-    "email": "email@email.com",
-    "nombreProfesional": "elizabeth andrea cortes cortes"
+    "RUT": "",
+    "profesionpro": "",
+    "cargo": "",
+    "fono": "",
+    "fecha": "",
+    "email": "",
+    "nombreProfesional": ""
   },
   "diagnostico": {
     "fechaEmision": "",
@@ -26,154 +33,120 @@
     "transtornoGeneralizadoDesarrolloEspec": false,
     "transtornoAperger": false,
     "cambiosEnDiagnostico": false,
-    "indicacionesModificacionesDiagnostico": ""
+    "proNuevoDiag": "",
+    "indicacionesModificacionesDiagnostico": "",
+    "42": false,
+    "43": false,
+    "44": false,
+    "45": false,
+    "46": false
   },
   "documentos": {
     "numeroDocumento": "",
-    "pautaObservacion": false,
-    "obsContextoExcolar": false,
-    "certificadosProtocolosInformes": {
-      "escolar": false,
-      "social": false,
-      "neurologico": false,
-      "psicologico": false,
-      "fonoaudiologico": false,
-      "evaPedagogica": false,
-      "psicopedagogica": false,
-      "valoracionSalud": false,
-      "examenMedicoEspecialista": false,
-      "otros": false
-    },
-    "examenMedicoEspecialista": "",
-    "otros": ""
+    "progresoComportamiento": "",
+    "aspectosEnfasis": "",
+    "otrosEspecificar": "",
+    "EMEsp": "",
+    "51": false,
+    "52": false,
+    "53": false,
+    "54": false,
+    "55": false,
+    "56": false,
+    "57": false,
+    "58": false,
+    "59": false,
+    "60": false,
+    "61": false,
+    "63": false
   },
   "revaluacion": {
-    "interaccionSocial": {
-      "progresos": "",
-      "aspectosEnfasis": "",
-      "fuentesInformacion": {
-        "entrevistaFamilia": false,
-        "obsContextoEscolar": false,
-        "aplicacionInstrumento": false
-      },
-      "obsContextoEscolar": "",
-      "aplicacionInstrumento": ""
-    },
-    "lenguajeComunicacion": {
-      "progresos": "",
-      "aspectosEnfasis": "",
-      "fuentesInformacion": {
-        "entrevistaFamilia": false,
-        "obsContextoEscolar": false,
-        "aplicacionInstrumento": false
-      },
-      "obsContextoEscolar": "",
-      "aplicacionInstrumento": ""
-    },
-    "cognitiva": {
-      "progresos": "",
-      "aspectosEnfasis": "",
-      "fuentesInformacion": {
-        "entrevistaFamilia": false,
-        "obsContextoEscolar": false,
-        "aplicacionInstrumento": false
-      },
-      "obsContextoEscolar": "",
-      "aplicacionInstrumento": ""
-    },
-    "procesamientoSensorial": {
-      "progresos": "",
-      "aspectosEnfasis": "",
-      "fuentesInformacion": {
-        "entrevistaFamilia": false,
-        "obsContextoEscolar": false,
-        "aplicacionInstrumento": false
-      },
-      "obsContextoEscolar": "",
-      "aplicacionInstrumento": ""
-    },
-    "motora": {
-      "progresos": "",
-      "aspectosEnfasis": "",
-      "fuentesInformacion": {
-        "entrevistaFamilia": false,
-        "obsContextoEscolar": false,
-        "aplicacionInstrumento": false
-      },
-      "obsContextoEscolar": "",
-      "aplicacionInstrumento": ""
-    },
-    "academicaFuncional": {
-      "aprendizajeLogrado": "",
-      "aprendizajeNoLogrado": "",
-      "logrosRelevantes": "",
-      "fuentesInformacion": {
-        "entrevistaFamilia": false,
-        "obsContextoEscolar": false,
-        "aplicacionInstrumento": false
-      },
-      "obsContextoEscolar": "",
-      "aplicacionInstrumento": ""
-    },
-    "desempenoPersonalSocial": {
-      "progresos": "",
-      "aspectosEnfasis": "",
-      "fuentesInformacion": {
-        "entrevistaFamilia": false,
-        "obsContextoEscolar": false,
-        "aplicacionInstrumento": false
-      },
-      "obsContextoEscolar": "",
-      "aplicacionInstrumento": ""
-    },
-    "contextFamiliarSocial": {
-      "progresos": "",
-      "aspectosEnfasis": "",
-      "fuentesInformacion": {
-        "entrevistaFamilia": false,
-        "obsContextoEscolar": false,
-        "aplicacionInstrumento": false
-      },
-      "obsContextoEscolar": "",
-      "aplicacionInstrumento": ""
-    }
+    "IStxtObsContextoEscolar": "",
+    "IStxtAplicacionInstrumento": "",
+    "67": false,
+    "68": false,
+    "70": false,
+    "ISprogresos": "",
+    "ISaspectosEnfasis": "",
+    "LCprogresos": "",
+    "LCaspectosEnfasis": "",
+    "74": false,
+    "75": false,
+    "77": false,
+    "LCtxtObsContextoEscolar": "",
+    "LCtxtAplicacionInstrumento": "",
+    "Cprogresos": "",
+    "CaspectosEnfasis": "",
+    "81": false,
+    "82": false,
+    "84": false,
+    "CtxtObsContextoEscolar": "",
+    "CtxtAplicacionInstrumento": "",
+    "PSprogresos": "",
+    "PSaspectosEnfasis": "",
+    "88": false,
+    "89": false,
+    "91": false,
+    "PStxtObsContextoEscolar": "",
+    "PStxtAplicacionInstrumento": "",
+    "Mprogresos": "",
+    "MaspectosEnfasis": "",
+    "96": false,
+    "97": false,
+    "99": false,
+    "MtxtObsContextoEscolar": "",
+    "MtxtAplicacionInstrumento": "",
+    "AFaprendizajeLogrado": "",
+    "AFaprendizajeNoLogrado": "",
+    "AFlogrosRelevantes": "",
+    "103": false,
+    "104": false,
+    "106": false,
+    "AFtxtObsContextoEscolar": "",
+    "AFtxtAplicacionInstrumento": "",
+    "DPSprogresos": "",
+    "DPSaspectosEnfasis": "",
+    "111": false,
+    "112": false,
+    "114": false,
+    "DPStxtObsContextoEscolar": "",
+    "DPStxtAplicacionInstrumento": "",
+    "CFSprogresos": "",
+    "CFSaspectosEnfasis": "",
+    "118": false,
+    "119": false,
+    "121": false,
+    "CFStxtObsContextoEscolar": "",
+    "CFStxtAplicacionInstrumento": ""
   },
   "evaluacionApoyos": {
-    "personales": {
-      "efectividad": "",
-      "observaciones": "",
-      "continuidad": false
-    },
-    "curriculares": {
-      "efectividad": "",
-      "observaciones": "",
-      "continuidad": false
-    },
-    "mediosRecursosMateriales": {
-      "efectividad": "",
-      "observaciones": "",
-      "continuidad": false
-    },
-    "organizativos": {
-      "efectividad": "",
-      "observaciones": "",
-      "continuidad": false
-    },
-    "familiares": {
-      "efectividad": "",
-      "observaciones": "",
-      "continuidad": false
-    },
-    "otrosApoyos": {
-      "efectividad": "",
-      "observaciones": "",
-      "continuidad": false
-    },
-    "estrategias": {
-      "descripcion": "",
-      "efectividad": ""
-    },
     "nuevosApoyos": "",
-    "comentarios": ""
+    "comentarios": "",
+    "127": false,
+    "128": false,
+    "PERefectividad": "",
+    "PERcontinuidad": "",
+    "131": false,
+    "132": false,
+    "CURefectividad": "",
+    "CURcontinuidad": "",
+    "135": false,
+    "136": false,
+    "MRMefectividad": "",
+    "MRMcontinuidad": "",
+    "139": false,
+    "140": false,
+    "ORGefectividad": "",
+    "ORGcontinuidad": "",
+    "143": false,
+    "144": false,
+    "FAMefectividad": "",
+    "FAMcontinuidad": "",
+    "147": false,
+    "148": false,
+    "OAefectividad": "",
+    "OAcontinuidad": "",
+    "estrategias": "",
+    "efectividad": ""
   }
 }
