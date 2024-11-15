@@ -6,7 +6,7 @@ import Docxtemplater from 'docxtemplater';
 import { DOMParser, XMLSerializer } from 'xmldom';
 
 // Función para extraer y analizar los checkboxes del documento
-function extractCheckboxes(docXml) {
+function extractCheckboxes(docXml, jsonPath) {
   try {
     const doc = new DOMParser().parseFromString(docXml, 'text/xml');
     const serializer = new XMLSerializer();
@@ -23,11 +23,46 @@ function extractCheckboxes(docXml) {
         const checkedElement = checkboxElement.getElementsByTagName('w:checked')[0];
         let checkboxState = checkedElement.getAttribute('w:val');
 
-        // Modificar el atributo w:val a cadena vacía ('')
-        if(i === 9 || i === 10){
-          checkedElement.setAttribute('w:val', '0');   //0:desactivado //1:activado
-        }else{
-          checkedElement.setAttribute('w:val', '1'); 
+        // Modificar el atributo w:val //0:desactivado //1:activado
+        //4 - 10
+        if(i >= 4 && i <= 10){
+          if(!jsonPath.datosIdentificacion[`${i}`]){
+            checkedElement.setAttribute('w:val', '0');   
+          }else{
+            checkedElement.setAttribute('w:val', '1'); 
+          }
+        }
+
+        if(i >= 42 && i <= 44){
+          if(!jsonPath.diagnostico[`${i}`]){
+            checkedElement.setAttribute('w:val', '0');   
+          }else{
+            checkedElement.setAttribute('w:val', '1'); 
+          }
+        }
+
+        if(i >= 51 && i <= 63){
+          if(!jsonPath.documentos[`${i}`]){
+            checkedElement.setAttribute('w:val', '0');   
+          }else{
+            checkedElement.setAttribute('w:val', '1'); 
+          }
+        }
+
+        if(i >= 67 && i <= 121){
+          if(!jsonPath.revaluacion[`${i}`]){
+            checkedElement.setAttribute('w:val', '0');   
+          }else{
+            checkedElement.setAttribute('w:val', '1'); 
+          }
+        }
+
+        if(i >= 127 && i <= 148){
+          if(!jsonPath.evaluacionApoyos[`${i}`]){
+            checkedElement.setAttribute('w:val', '0');   
+          }else{
+            checkedElement.setAttribute('w:val', '1'); 
+          }
         }
 
         // Actualizar el estado después de la modificación
@@ -40,7 +75,10 @@ function extractCheckboxes(docXml) {
         });
       }
     }
-
+    
+    //Imprime todos los id de los checkbox
+    //checkboxData.map(cb => console.log(cb.id))
+    
     // Convertir el documento modificado de vuelta a XML
     const modifiedXml = serializer.serializeToString(doc);
     return { checkboxData, modifiedXml };
@@ -63,14 +101,14 @@ export const modifyDocxContent = async (templatePath, outputPath, jsonPath) => {
     const content = fs.readFileSync(templatePath, 'binary');
 
     // Leer el contenido del archivo JSON
-    const jsonContent = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+    const jsonContent = jsonPath;
 
     // Cargar el contenido del archivo .docx con JSZip para modificar los checkboxes
     const zip1 = new JSZip();
     const zipContent = await zip1.loadAsync(content, { binary: true })
 
     const docXml = await zipContent.file('word/document.xml').async('text')
-    const { checkboxData, modifiedXml } = extractCheckboxes(docXml);
+    const { checkboxData, modifiedXml } = extractCheckboxes(docXml, jsonPath);
 
     if (!modifiedXml) {
       console.error('Error al obtener el XML modificado.');
@@ -86,7 +124,7 @@ export const modifyDocxContent = async (templatePath, outputPath, jsonPath) => {
     // Guardar el documento .docx modificado
     fs.writeFileSync(outputPath, updatedContent);
 
-    console.log(checkboxData);
+    //console.log(checkboxData);
     console.log(`Archivo con checkboxes modificados guardado en: ${outputPath}`);
 
     const outcontent = fs.readFileSync(outputPath, 'binary');
@@ -116,6 +154,8 @@ export const modifyDocxContent = async (templatePath, outputPath, jsonPath) => {
       ESTABLECIMIENTOEST: datosIdentificacion.establecimiento,
       rbd: datosIdentificacion.RBD,
       nombreDirector: datosIdentificacion.nombreDirector,
+      OTRAOE: datosIdentificacion.OEotra,
+      VOTRA: datosIdentificacion.VCotra,
 
       NOMBREPROFESIONAL: profesional.nombreProfesional,
       rutpro: profesional.RUT,
@@ -127,56 +167,76 @@ export const modifyDocxContent = async (templatePath, outputPath, jsonPath) => {
 
       DiagnosticoObservaciones: diagnostico.observaciones,
       fechaEmi: diagnostico.fechaEmision,
+      indModDiag: diagnostico.indicacionesModificacionesDiagnostico,
+      proNuevoDiag: diagnostico.proNuevoDiag,
 
-      nroDocs: documentos.numeroDocumentos,
+      nroDocs: documentos.numeroDocumento,
+      otroDocEspec: documentos.otrosEspecificar,
+      EMEsp: documentos.EMEsp,
 
-      DescIntSoc: revaluacion.interaccionSocial.progresos,
-      EnfaIntSoc: revaluacion.interaccionSocial.aspectosEnfasis,
+      DescIntSoc: revaluacion.ISprogresos,
+      EnfaIntSoc: revaluacion.ISaspectosEnfasis,
+      obsIS: revaluacion.IStxtObsContextoEscolar,
+      appIS: revaluacion.IStxtAplicacionInstrumento,
 
-      DescLengCom: revaluacion.lenguajeComunicacion.progresos,
-      EnfaLengCom: revaluacion.lenguajeComunicacion.aspectosEnfasis,
+      DescLengCom: revaluacion.LCprogresos,
+      EnfaLengCom: revaluacion.LCaspectosEnfasis,
+      obsLC: revaluacion.LCtxtObsContextoEscolar,
+      appLC: revaluacion.LCtxtAplicacionInstrumento,
 
-      DescCog: revaluacion.cognitiva.progresos,
-      EnfaCog: revaluacion.cognitiva.aspectosEnfasis,
+      DescCog: revaluacion.Cprogresos,
+      EnfaCog: revaluacion.CaspectosEnfasis,
+      obsC: revaluacion.CtxtObsContextoEscolar,
+      appC: revaluacion.CtxtAplicacionInstrumento,
 
-      DescProSen: revaluacion.procesamientoSensorial.progresos,
-      EnfaProSen: revaluacion.procesamientoSensorial.aspectosEnfasis,
+      DescProSen: revaluacion.PSprogresos,
+      EnfaProSen: revaluacion.PSaspectosEnfasis,
+      obsPS: revaluacion.PStxtObsContextoEscolar,
+      appPS: revaluacion.PStxtAplicacionInstrumento,
 
-      DescMot: revaluacion.motora.progresos,
-      EnfaMot: revaluacion.motora.aspectosEnfasis,
+      DescMot: revaluacion.Mprogresos,
+      EnfaMot: revaluacion.MaspectosEnfasis,
+      obsM: revaluacion.MtxtObsContextoEscolar,
+      appM: revaluacion.MtxtAplicacionInstrumento,
 
-      aprendizajeLogrado: revaluacion.academicaFuncional.aprendizajeLogrado,
-      aprendizajeNoLogrado: revaluacion.academicaFuncional.aprendizajeNoLogrado,
-      logrosRelevantes: revaluacion.academicaFuncional.logrosRelevantes,
+      aprendizajeLogrado: revaluacion.AFaprendizajeLogrado,
+      aprendizajeNoLogrado: revaluacion.AFaprendizajeNoLogrado,
+      logrosRelevantes: revaluacion.AFlogrosRelevantes,
+      obsAF: revaluacion.AFtxtObsContextoEscolar,
+      appaf: revaluacion.AFtxtAplicacionInstrumento,
 
-      DescdesPerSoc: revaluacion.desempenoPersonalSocial.progresos,
-      EnfadesPerSoc: revaluacion.desempenoPersonalSocial.aspectosEnfasis,
+      DescdesPerSoc: revaluacion.DPSprogresos,
+      EnfadesPerSoc: revaluacion.DPSaspectosEnfasis,
+      obsDPS: revaluacion.DPStxtObsContextoEscolar,
+      appDPS: revaluacion.DPStxtAplicacionInstrumento,
 
-      DescConFam: revaluacion.contextFamiliarSocial.progresos,
-      EnfaConFam: revaluacion.contextFamiliarSocial.aspectosEnfasis,
+      DescConFam: revaluacion.CFSprogresos,
+      EnfaConFam: revaluacion.CFSaspectosEnfasis,
+      obsCFS: revaluacion.CFStxtObsContextoEscolar,
+      appCFS: revaluacion.CFStxtAplicacionInstrumento,
 
-      efecPer: evaluacionApoyos.personales.efectividad,
-      obsPer: evaluacionApoyos.personales.observaciones,
+      efecPer: evaluacionApoyos.PERefectividad,
+      obsPer: evaluacionApoyos.PERcontinuidad,
 
-      efecCur: evaluacionApoyos.curriculares.efectividad,
-      obsCur: evaluacionApoyos.curriculares.observaciones,
+      efecCur: evaluacionApoyos.CURefectividad,
+      obsCur: evaluacionApoyos.CURcontinuidad,
 
-      efecMedRecMat: evaluacionApoyos.mediosRecursosMateriales.efectividad,
-      obsMedRecMat: evaluacionApoyos.mediosRecursosMateriales.observaciones,
+      efecMedRecMat: evaluacionApoyos.MRMefectividad,
+      obsMedRecMat: evaluacionApoyos.MRMcontinuidad,
 
-      efecOrg: evaluacionApoyos.organizativos.efectividad,
-      obsOrg: evaluacionApoyos.organizativos.observaciones,
+      efecOrg: evaluacionApoyos.ORGefectividad,
+      obsOrg: evaluacionApoyos.ORGcontinuidad,
 
-      efecFam: evaluacionApoyos.familiares.efectividad,
-      obsFam: evaluacionApoyos.familiares.observaciones,
+      efecFam: evaluacionApoyos.FAMefectividad,
+      obsFam: evaluacionApoyos.FAMcontinuidad,
 
-      efecApo: evaluacionApoyos.otrosApoyos.efectividad,
-      obsApo: evaluacionApoyos.otrosApoyos.observaciones,
+      efecApo: evaluacionApoyos.OAefectividad,
+      obsApo: evaluacionApoyos.OAcontinuidad,
 
-      efecEst: evaluacionApoyos.estrategias.efectividad,
-      descEst: evaluacionApoyos.otrosApoyos.descripcion,
+      efecEst: evaluacionApoyos.estrategias,
+      descEst: evaluacionApoyos.efectividad,
 
-      nuevosApo: evaluacionApoyos.nuevosApo,
+      nuevosApo: evaluacionApoyos.nuevosApoyos,
       comentarios: evaluacionApoyos.comentarios
     });
 
