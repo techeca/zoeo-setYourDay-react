@@ -12,14 +12,16 @@ export default function Panel() {
   let location = useLocation();
 
   async function getDocuments() {
-    const response = await getAllDocuments()
+    const token = localStorage.getItem('token')
+    const response = await getAllDocuments(token)
     //console.log(response);
     setAllDocuments(response)
   }
 
   async function handleDocumentClick(documentId) {
     //console.log(documentId);
-    const { document } = await getDocument(documentId)
+    const token = localStorage.getItem('token')
+    const { document } = await getDocument(documentId, token)
     setDocumentData(document); // Actualizamos el documento en el contexto
     //console.log(`Id de Documento: ${documentId}`);
     //console.log(response);
@@ -33,7 +35,7 @@ export default function Panel() {
   }, [document])
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row w-full">
       
       <div className="w-full flex flex-col items-center">
 
@@ -43,7 +45,7 @@ export default function Panel() {
         <div className="flex h-32 w-32 items-center justify-center border-2 rounded-md border-dashed border-border bg-gray-1">+</div>
       </div>*/}
 
-        <div className={`${state === 'p1' ? 'opacity-100' : 'opacity-0 invisible hidden'} flex flex-wrap justify-center select-none pt-6`}>
+        <div className={`${state === 'p1' ? 'opacity-100' : 'opacity-0 invisible hidden'} flex flex-wrap w-full justify-center select-none pt-6`}>
           {allDocuments && allDocuments.map((document) => (
             <div key={document._id} onClick={() => handleDocumentClick(document._id)} className="card m-3 p-4 cursor-pointer hover:bg-gray-4 hover:opacity-100 opacity-80">
               <div className="flex justify-between">

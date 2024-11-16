@@ -6,7 +6,8 @@ export default function Team() {
 
     async function getPros() {
         //getAllProfesional()
-        const { pros } = await getAllProfesional()
+        const token = localStorage.getItem('token')
+        const { pros } = await getAllProfesional(token)
         setProfs(pros);
     }
 

@@ -1,11 +1,8 @@
-import { useNavigate } from "react-router-dom"
 import { useAuth } from "../../contexts/AuthContext"
 import { useAlert } from "../../contexts/AlertContext";
 import { useState } from "react";
 
-
 export default function Login() {
-    const navigate = useNavigate()
     const { login } = useAuth();
     const { showAlert } = useAlert()
     const [formValues, setFormValues] = useState({
@@ -15,9 +12,18 @@ export default function Login() {
 
     async function handleLogin(e) {
         e.preventDefault();
+
+        if (formValues.correo.length < 6 || formValues.contrasena.length < 6) {
+            if (formValues.contrasena.length < 6) {
+                showAlert(`La Contraseña debe tener una longitud de 6 letras y números.`, 'warning', 'Error en la Contraseña')
+                throw new Error('El Correo o la Contraseña no cumplen los requisitos.')
+            }
+            showAlert(`Requisitos incompletos en Correo o Contraseña`, 'warning', 'Requisitos incompletos')
+            throw new Error('El Correo o la Contraseña no cumplen los requisitos.')
+        }
+
         try {
             const response = await login(formValues.correo, formValues.contrasena);
-            console.log(response);
             if (response.user) {
                 showAlert(response.message, 'success', 'Bienvenido/a');
                 // navigate('/panel');

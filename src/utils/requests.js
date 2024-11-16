@@ -48,11 +48,14 @@ export const handleUpdateDocument = async (key, documento, texto, docId) => {
     }
 };
 
-export const handleCreateDocument = async (document) => {
+export const handleCreateDocument = async (document, token) => {
     try {
         const response = await fetch(`${API_URL}/api/create-document`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify({ document: document })
         })
         if (!response.ok) {
@@ -65,11 +68,14 @@ export const handleCreateDocument = async (document) => {
     }
 }
 
-export const getAllDocuments = async () => {
+export const getAllDocuments = async (token) => {
     try {
         const response = await fetch(`${API_URL}/api/list-documents`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         })
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -81,11 +87,14 @@ export const getAllDocuments = async () => {
     }
 }
 
-export const getDocument = async (documentId) => {
+export const getDocument = async (documentId, token) => {
     try {
         const response = await fetch(`${API_URL}/api/document/${documentId}`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json'}
+            headers: { 
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token}`
+            }
         });
         const jsonData = await response.json();
         return { document: jsonData, message: 'Documento encontrado' };
@@ -97,6 +106,7 @@ export const getDocument = async (documentId) => {
 
 export const deleteDocument = async (documentId) => {
     try {
+        const temp = localStorage.getItem('token')
         const response = await fetch(`${API_URL}/api/delete-document`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json'},
@@ -110,11 +120,34 @@ export const deleteDocument = async (documentId) => {
     }
 }
 
-export const handleCreateUser = async (email, password, username) => {
+export const handleDeleteUser = async (id) => {
     try {
-        const response = await fetch(`${API_URL}/api/auth/register`, {
+        const token = localStorage.getItem('token')
+        const response = await fetch(`${API_URL}/api/admin/deleteProfesional`, {
+            method: 'DELETE',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ id: id })
+        }); 
+
+        const jsonData = await response.json();
+        return { document: jsonData, message: 'Documento eliminado' };
+    } catch (error) {
+        return { message: 'Error al eliminar el documento' }
+    }
+}
+
+export const handleCreateUser = async (email, password, username) => {
+    const token = localStorage.getItem('token')
+    try {
+        const response = await fetch(`${API_URL}/api/admin/registerProfesional`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+             },
             body: JSON.stringify({ email, password, username })
         });
         if (response.ok) {
@@ -130,11 +163,15 @@ export const handleCreateUser = async (email, password, username) => {
     }
 };
 
-export const getAllProfesional = async () => {
+export const getAllProfesional = async (token) => {
     try {
         const response = await fetch(`${API_URL}/api/auth/allProfesional`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 
+                'Content-Type': 'application/json', 
+                'Authorization': `Bearer ${token}`
+            }
+
         })
         if (response.ok) {
             const data = await response.json();
@@ -144,7 +181,7 @@ export const getAllProfesional = async () => {
             return { message: errorData.error || 'Error al obtener los profesionales' };
         }
     } catch (error) {
-        console.error('Error al obtener los profesionales:', error);
+        //console.error('Error al obtener los profesionales:', error);
         return { message: 'Error al conectar con el servidor' };
     }
 }

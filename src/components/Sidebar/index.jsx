@@ -61,7 +61,7 @@ export default function Sidebar() {
                     </span>
                   </label>
 
-                  <div className="menu-item-collapse">
+                  <div className="menu-item-collapse mt-2">
                     <div className="min-h-0">
                       <Link to={"/profile"}>
                         <label className={`menu-item ml-6 ${location.pathname == '/profile' && `menu-active`}`}>Perfil</label>
@@ -87,7 +87,7 @@ export default function Sidebar() {
                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                         <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path>
                       </svg>
-                      <Link to={"/Admin/accounts"} className={`menu-item ml-6 ${location.pathname == '/admin/accounts' && `menu-active`}`}>
+                      <Link to={"/Admin/accounts"} className={`menu-item ml-6 p-0 ${location.pathname == '/admin/accounts' && `menu-active`}`}>
                         Cuentas de Usuario
                       </Link>
                     </li>
@@ -110,8 +110,8 @@ export default function Sidebar() {
                 </div>
               </div>
             </label>
-            <div className="dropdown-menu-right-top dropdown-menu ml-2 mb-2">
-              <a className="dropdown-item text-sm">Perfil</a>
+            <div className="dropdown-menu-right-top dropdown-menu ml-2 m-2">
+              <Link to={"/profile"} className="dropdown-item text-sm">Perfil</Link>
               <a tabIndex="-1" className="dropdown-item menu-item-disabled text-sm">Cambiar email</a>
               <a tabIndex="-1" className="dropdown-item menu-item-disabled text-sm">Cambiar password</a>
               <a onClick={() => handleLogout()} tabIndex="-1" className="dropdown-item text-sm flex flex-row items-center">

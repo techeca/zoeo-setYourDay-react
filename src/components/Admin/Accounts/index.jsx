@@ -1,5 +1,5 @@
 import { useAlert } from "../../../contexts/AlertContext"
-import { getAllProfesional, handleCreateUser } from "../../../utils/requests"
+import { getAllProfesional, handleCreateUser, handleDeleteUser } from "../../../utils/requests"
 import { useEffect, useState } from "react";
 
 export default function Accounts() {
@@ -38,7 +38,8 @@ export default function Accounts() {
     };
 
     async function getPros() {
-        const { pros } = await getAllProfesional()
+        const token = localStorage.getItem('token')
+        const { pros } = await getAllProfesional(token)
         setProfs(pros);
     }
 
@@ -83,22 +84,22 @@ export default function Accounts() {
                                 <svg xmlns="http://www.w3.org/2000/svg" className="size-20 opacity-10" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M7.39 16.539a8 8 0 1 1 9.221 0l2.083 4.76a.5.5 0 0 1-.459.701H5.765a.5.5 0 0 1-.459-.7zm6.735-.693l1.332-.941a6 6 0 1 0-6.913 0l1.331.941L8.058 20h7.884zM8.119 10.97l1.94-.485a2 2 0 0 0 3.882 0l1.94.485a4.002 4.002 0 0 1-7.762 0"></path></svg>
                             </div>
                             <div>
-                                    <div className="text-xs bg-gray-2 p-1 rounded-full px-2">
-                                        {pro._id}
-                                    </div>
-                                    <div className="flex justify-end">
-                                        <span className="tooltip tooltip-bottom" data-tooltip="Cambiar contraseña">
-                                            <button className="text-right font-semibold text-sm mt-1 mr-1 bg-gray-2 opacity-80 rounded-full p-1 hover:opacity-100">
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="size-6" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor"><path strokeLinecap="round" d="M8 10V7a4 4 0 1 1 8 0v3"></path><path strokeLinejoin="round" d="M5 10h14v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"></path><path strokeLinejoin="round" strokeWidth={1.5} d="M14.5 15.5h.01v.01h-.01z"></path></g></svg>
-                                            </button>
-                                        </span>
-                                        <span className="tooltip tooltip-bottom" data-tooltip="Eliminar cuenta">
-                                            <p className="text-right font-semibold text-sm mt-1 mr-1 bg-gray-2 rounded-full p-1 opacity-80 hover:opacity-100">
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="size-6 text-red-500" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M14 11v6m-4-6v6M6 7v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M4 7h16M7 7l2-4h6l2 4"></path></svg>
-                                            </p>
-                                        </span>
-                                    </div>
+                                <div className="text-xs bg-gray-2 p-1 rounded-full px-2">
+                                    {pro._id}
                                 </div>
+                                <div className="flex justify-end">
+                                    <span className="tooltip tooltip-bottom" data-tooltip="Cambiar contraseña">
+                                        <button onClick={() => console.log('bloqueo de usuario')} className="text-right font-semibold text-sm mt-1 mr-1 bg-gray-2 opacity-80 rounded-full p-1 hover:opacity-100">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="size-6" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor"><path strokeLinecap="round" d="M8 10V7a4 4 0 1 1 8 0v3"></path><path strokeLinejoin="round" d="M5 10h14v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"></path><path strokeLinejoin="round" strokeWidth={1.5} d="M14.5 15.5h.01v.01h-.01z"></path></g></svg>
+                                        </button>
+                                    </span>
+                                    <span className="tooltip tooltip-bottom" data-tooltip="Eliminar cuenta">
+                                        <button onClick={() => handleDeleteUser(pro._id)} className="text-right font-semibold text-sm mt-1 mr-1 bg-gray-2 rounded-full p-1 opacity-80 hover:opacity-100">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="size-6 text-red-500" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M14 11v6m-4-6v6M6 7v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M4 7h16M7 7l2-4h6l2 4"></path></svg>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div className="bg-gray-2 p-3 rounded-md mt-2 flex flex-col gap-2">
                             <p className=""><span className="font-semibold"></span><span className="w-full badge text-gray-100/70">Nombre: {pro.username}</span></p>
@@ -106,6 +107,21 @@ export default function Accounts() {
                         </div>
                     </div>
                 ))}
+            </div>
+            <label className="btn btn-primary" htmlFor="modal-1">Open Modal</label>
+            <input className="modal-state" id="modal-1" type="checkbox" />
+            <div className="modal">
+                <label className="modal-overlay" htmlFor="modal-1"></label>
+                <div className="modal-content flex flex-col gap-5">
+                    <label htmlFor="modal-1" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+                    <h2 className="text-xl">Modal title 1</h2>
+                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur dolorum voluptate ratione dicta. Maxime cupiditate, est commodi consectetur earum iure, optio, obcaecati in nulla saepe maiores nobis iste quasi alias!</span>
+                    <div className="flex gap-3">
+                        <button className="btn btn-error btn-block">Delete</button>
+
+                        <button className="btn btn-block">Cancel</button>
+                    </div>
+                </div>
             </div>
         </div>
     )
