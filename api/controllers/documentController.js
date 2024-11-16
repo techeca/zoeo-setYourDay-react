@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { connectDB } from '../database.js';
 import { modifyDocxContent } from '../utils/modifyDocx.js';
+import fs from 'node:fs'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

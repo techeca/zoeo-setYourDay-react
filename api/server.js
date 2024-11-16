@@ -2,6 +2,7 @@ import express from 'express';
 import documentRouter from './routes/DocumentRoute.js';
 import cors from 'cors';
 import routerAuth from './routes/AuthRoute.js'
+import routerAdmin from './routes/AdminRoute.js';
 //import bodyParser from 'body-parser';
 
 const app = express();
@@ -19,7 +20,8 @@ function setupMiddleware(){
 
 function setupRoutes(){
     app.use('/api', documentRouter);
-    app.use('/api/auth', routerAuth)
+    app.use('/api/auth', routerAuth);
+    app.use('/api/admin', routerAdmin);
 }
 
 export function startServer(PORT){
