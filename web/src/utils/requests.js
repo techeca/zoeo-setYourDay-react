@@ -1,9 +1,11 @@
+import apiFetch from "./apiFetch";
+
 const API_URL = import.meta.env.VITE_API_URL
 
 export const handleGenerateDocument = async (documento) => {
     //Solicitud para descargar documento
     try {
-        const response = await fetch(`${API_URL}/api/process-document`, {
+        const response = await apiFetch(`${API_URL}/api/process-document`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ documento: documento._id })
@@ -29,7 +31,7 @@ export const handleGenerateDocument = async (documento) => {
 export const handleUpdateDocument = async (key, documento, texto, docId) => {
     try {
         const token = localStorage.getItem('token')
-        const response = await fetch(`${API_URL}/api/update-document`, {
+        const response = await apiFetch(`${API_URL}/api/update-document`, {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
@@ -54,7 +56,7 @@ export const handleUpdateDocument = async (key, documento, texto, docId) => {
 export const handleCreateDocument = async (document) => {
     try {
         const token = localStorage.getItem('token')
-        const response = await fetch(`${API_URL}/api/create-document`, {
+        const response = await apiFetch(`${API_URL}/api/create-document`, {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json', 
@@ -75,7 +77,7 @@ export const handleCreateDocument = async (document) => {
 
 export const getAllDocuments = async (token) => {
     try {
-        const response = await fetch(`${API_URL}/api/list-documents`, {
+        const response = await apiFetch(`${API_URL}/api/list-documents`, {
             method: 'GET',
             headers: { 
                 'Content-Type': 'application/json',
@@ -94,7 +96,7 @@ export const getAllDocuments = async (token) => {
 
 export const getDocument = async (documentId, token) => {
     try {
-        const response = await fetch(`${API_URL}/api/document/${documentId}`, {
+        const response = await apiFetch(`${API_URL}/api/document/${documentId}`, {
             method: 'GET',
             headers: { 
                 'Content-Type': 'application/json', 
@@ -112,7 +114,7 @@ export const getDocument = async (documentId, token) => {
 export const deleteDocument = async (documentId) => {
     try {
         const token = localStorage.getItem('token')
-        const response = await fetch(`${API_URL}/api/delete-document`, {
+        const response = await apiFetch(`${API_URL}/api/delete-document`, {
             method: 'DELETE',
             headers: { 
                 'Content-Type': 'application/json',
@@ -135,7 +137,7 @@ export const deleteDocument = async (documentId) => {
 export const handleDeleteUser = async (id) => {
     try {
         const token = localStorage.getItem('token')
-        const response = await fetch(`${API_URL}/api/admin/deleteProfesional`, {
+        const response = await apiFetch(`${API_URL}/api/admin/deleteProfesional`, {
             method: 'DELETE',
             headers: { 
                 'Content-Type': 'application/json',
@@ -157,9 +159,9 @@ export const handleDeleteUser = async (id) => {
 }
 
 export const handleCreateUser = async (email, password, username) => {
-    const token = localStorage.getItem('token')
     try {
-        const response = await fetch(`${API_URL}/api/admin/registerProfesional`, {
+        const token = localStorage.getItem('token')
+        const response = await apiFetch(`${API_URL}/api/admin/registerProfesional`, {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
@@ -180,9 +182,10 @@ export const handleCreateUser = async (email, password, username) => {
     }
 };
 
-export const getAllProfesional = async (token) => {
+export const getAllProfesional = async () => {
     try {
-        const response = await fetch(`${API_URL}/api/auth/allProfesional`, {
+        const token = localStorage.getItem('token')
+        const response = await apiFetch(`${API_URL}/api/auth/allProfesional`, {
             method: 'GET',
             headers: { 
                 'Content-Type': 'application/json', 
@@ -205,7 +208,7 @@ export const getAllProfesional = async (token) => {
 
 export const handleUserLogin = async (email, password) => {
     try {
-        const response = await fetch(`${API_URL}/api/auth/login`, {
+        const response = await apiFetch(`${API_URL}/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })

@@ -7,6 +7,6 @@ const routerAuth = express.Router();
 routerAuth.post('/login', userLogin);
 //routerAuth.post('/register', userRegister);
 routerAuth.get('/allProfesional', authenticateToken, getAllProfesional)
-routerAuth.get('/api/token', authenticateToken, refreshToken)
+routerAuth.post('/token', authenticateToken, refreshToken)
 
 export default routerAuth
