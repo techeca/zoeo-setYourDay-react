@@ -1,5 +1,5 @@
 import { connectDB } from '../database.js';
-import bcrypt  from 'bcrypt'
+import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 async function authenticateUser(email, password) {
@@ -28,6 +28,21 @@ async function authenticateUser(email, password) {
     }
 }
 
+export const refreshToken = (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken) return res.status(401).json({ message: 'Refresh token no proporcionado' });
+
+    // Validar el Refresh Token
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err) return res.status(403).json({ message: 'Refresh token no válido' });
+
+        // Generar un nuevo Access Token
+        const accessToken = jwt.sign({ id: user.id, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+        res.json({ accessToken });
+    });
+};
+
 export const userLogin = async (req, res) => {
     const { email, password } = req.body;
 
@@ -43,6 +58,19 @@ export const userLogin = async (req, res) => {
         process.env.JWT_SECRET,
         { expiresIn: '1h' }
     );
+
+    const refreshToken = jwt.sign(
+        { id: user.id },
+        process.env.REFRESH_JWT_SECRET,
+        { expiresIn: '7d' }
+    )
+
+    res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+        path: '/api/auth/login'
+    })
 
     // Responder con el token y los datos básicos del usuario
     res.status(200).json({

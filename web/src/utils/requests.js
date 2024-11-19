@@ -1,9 +1,8 @@
-const API_URL = 'http://localhost:3000'
+const API_URL = import.meta.env.VITE_API_URL
 
 export const handleGenerateDocument = async (documento) => {
     //Solicitud para descargar documento
     try {
-        console.log(documento);
         const response = await fetch(`${API_URL}/api/process-document`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -29,9 +28,13 @@ export const handleGenerateDocument = async (documento) => {
 
 export const handleUpdateDocument = async (key, documento, texto, docId) => {
     try {
+        const token = localStorage.getItem('token')
         const response = await fetch(`${API_URL}/api/update-document`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+             },
             body: JSON.stringify({ key: key, documento: documento, texto: texto, docId: docId })
         });
 
@@ -48,8 +51,9 @@ export const handleUpdateDocument = async (key, documento, texto, docId) => {
     }
 };
 
-export const handleCreateDocument = async (document, token) => {
+export const handleCreateDocument = async (document) => {
     try {
+        const token = localStorage.getItem('token')
         const response = await fetch(`${API_URL}/api/create-document`, {
             method: 'POST',
             headers: { 
@@ -65,6 +69,7 @@ export const handleCreateDocument = async (document, token) => {
         return jsonData;
     } catch (error) {
         console.error('Error al crear el documento:', error);
+        return { message: 'Error al crear el documento' }
     }
 }
 
@@ -106,12 +111,19 @@ export const getDocument = async (documentId, token) => {
 
 export const deleteDocument = async (documentId) => {
     try {
-        const temp = localStorage.getItem('token')
+        const token = localStorage.getItem('token')
         const response = await fetch(`${API_URL}/api/delete-document`, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json'},
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify({ id: documentId })
-        }); 
+        });
+        
+        if(response.status === 401){
+            throw new Error('No tiene permisos')
+        }
 
         const jsonData = await response.json();
         return { document: jsonData, message: 'Documento eliminado' };
@@ -132,10 +144,15 @@ export const handleDeleteUser = async (id) => {
             body: JSON.stringify({ id: id })
         }); 
 
-        const jsonData = await response.json();
-        return { document: jsonData, message: 'Documento eliminado' };
+        if (response.ok) {
+            const data = await response.json();
+            return { message: data.message };
+        } else {
+            const errorData = await response.json();
+            return { message: errorData.error || 'Error al eliminar el usuario' };
+        }
     } catch (error) {
-        return { message: 'Error al eliminar el documento' }
+        return { message: 'Error al eliminar el usuario' }
     }
 }
 

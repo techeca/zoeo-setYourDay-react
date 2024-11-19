@@ -1,6 +1,6 @@
 import { useAlert } from "../../../contexts/AlertContext"
 import { getAllProfesional, handleCreateUser, handleDeleteUser } from "../../../utils/requests"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function Accounts() {
     const { showAlert } = useAlert();
@@ -9,7 +9,13 @@ export default function Accounts() {
         correo: "",
         contrasena: ""
     })
-    const [profs, setProfs] = useState(false)
+    const [profs, setProfs] = useState(false);
+    const [generatedCode, setGeneratedCode] = useState('');
+    const [code, setCode] = useState(['', '', '', '', '', '']);
+    const inputRefs = useRef([]);
+    const [error, setError] = useState('');
+    const modalRef = useRef(null);
+    const [userSelected, setUserSelected] = useState();
 
     async function handleRegisterNewUser(e) {
         e.preventDefault();
@@ -37,14 +43,62 @@ export default function Accounts() {
         }));
     };
 
+    const handleInputChangeCode = (index, value) => {
+        if (value.length <= 1) {
+            const newCode = [...code]
+            newCode[index] = value.toUpperCase()
+            setCode(newCode)
+
+            // Move focus to next input
+            if (value !== '' && index < 5) {
+                inputRefs.current[index + 1]?.focus()
+            }
+        }
+    }
+
+    const handleKeyDown = (index, e) => {
+        if (e.key === 'Backspace' && index > 0 && code[index] === '') {
+            inputRefs.current[index - 1]?.focus()
+        }
+    }
+
     async function getPros() {
         const token = localStorage.getItem('token')
         const { pros } = await getAllProfesional(token)
         setProfs(pros);
     }
 
+    const handleCloseModal = () => {
+        //modalRef.current.checked = false
+        setCode(['', '', '', '', '', '']);
+        setGeneratedCode(Math.random().toString(36).substring(2, 8).toUpperCase());
+    }
+
+    const handleSubmit = async () => {
+        console.log(userSelected);
+        const enteredCode = code.join('')
+        if (enteredCode === generatedCode) {
+            try {
+                const response = await handleDeleteUser(userSelected);
+                //setDocumentData(null)
+                setCode(['', '', '', '', '', ''])
+                showAlert(response.message, 'success', 'Borrado')
+            } catch (error) {
+                showAlert('Error al borrar el usuario', 'error', 'Error');
+            } finally {
+                if (modalRef.current) {
+                    modalRef.current.checked = false;
+                }
+                //resetDocument();
+            }
+        } else {
+            setError('Código incorrecto. Por favor, inténtalo de nuevo.')
+        }
+    }
+
     useEffect(() => {
         getPros();
+        setGeneratedCode(Math.random().toString(36).substring(2, 8).toUpperCase());
     }, [])
 
     return (
@@ -88,16 +142,17 @@ export default function Accounts() {
                                     {pro._id}
                                 </div>
                                 <div className="flex justify-end">
-                                    <span className="tooltip tooltip-bottom" data-tooltip="Cambiar contraseña">
+                                    {/*<span className="tooltip tooltip-bottom" data-tooltip="Cambiar contraseña">
                                         <button onClick={() => console.log('bloqueo de usuario')} className="text-right font-semibold text-sm mt-1 mr-1 bg-gray-2 opacity-80 rounded-full p-1 hover:opacity-100">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="size-6" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor"><path strokeLinecap="round" d="M8 10V7a4 4 0 1 1 8 0v3"></path><path strokeLinejoin="round" d="M5 10h14v9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"></path><path strokeLinejoin="round" strokeWidth={1.5} d="M14.5 15.5h.01v.01h-.01z"></path></g></svg>
                                         </button>
-                                    </span>
+                                    </span>*/}
                                     <span className="tooltip tooltip-bottom" data-tooltip="Eliminar cuenta">
-                                        <button onClick={() => handleDeleteUser(pro._id)} className="text-right font-semibold text-sm mt-1 mr-1 bg-gray-2 rounded-full p-1 opacity-80 hover:opacity-100">
+                                        <label onClick={(e) => setUserSelected(pro._id)} className="flex mt-[4px] cursor-pointer p-1 font-semibold text-sm bg-red-2 rounded-full opacity-80 hover:opacity-100" htmlFor="modal-3">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="size-6 text-red-500" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M14 11v6m-4-6v6M6 7v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M4 7h16M7 7l2-4h6l2 4"></path></svg>
-                                        </button>
+                                        </label>
                                     </span>
+
                                 </div>
                             </div>
                         </div>
@@ -108,19 +163,34 @@ export default function Accounts() {
                     </div>
                 ))}
             </div>
-            <label className="btn btn-primary" htmlFor="modal-1">Open Modal</label>
-            <input className="modal-state" id="modal-1" type="checkbox" />
+            <input className="modal-state" id="modal-3" type="checkbox" />
             <div className="modal">
-                <label className="modal-overlay" htmlFor="modal-1"></label>
-                <div className="modal-content flex flex-col gap-5">
-                    <label htmlFor="modal-1" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
-                    <h2 className="text-xl">Modal title 1</h2>
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur dolorum voluptate ratione dicta. Maxime cupiditate, est commodi consectetur earum iure, optio, obcaecati in nulla saepe maiores nobis iste quasi alias!</span>
-                    <div className="flex gap-3">
-                        <button className="btn btn-error btn-block">Delete</button>
-
-                        <button className="btn btn-block">Cancel</button>
+                <label className="modal-overlay" htmlFor="modal-3"></label>
+                <div className="modal-content flex flex-col gap-5 w-full">
+                    <label htmlFor="modal-3" onClick={handleCloseModal} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+                    <h1 className="text-lg mb-[-18px]">Ingrese el código para continuar</h1>
+                    <h2 className="text-sm text-gray-11">Por favor, ingrese el código de acceso mostrado abajo.</h2>
+                    <div className="flex flex-col items-center gap-4 py-4">
+                        <div className="text-2xl font-bold tracking-wider bg-gray-3 p-3 rounded">
+                            {generatedCode}
+                        </div>
+                        <div className="flex gap-2">
+                            {code.map((digit, index) => (
+                                <input
+                                    key={index}
+                                    type="text"
+                                    maxLength={1}
+                                    value={digit}
+                                    onChange={(e) => handleInputChangeCode(index, e.target.value)}
+                                    onKeyDown={(e) => handleKeyDown(index, e)}
+                                    ref={(el) => inputRefs.current[index] = el}
+                                    className="w-10 h-10 text-center text-lg rounded-md bg-gray-3"
+                                />
+                            ))}
+                        </div>
+                        {error && <p className="text-sm text-red-500">{error}</p>}
                     </div>
+                    <button className={`w-full btn-error rounded-md py-2`} onClick={handleSubmit} >Continuar</button>
                 </div>
             </div>
         </div>

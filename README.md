@@ -8,34 +8,46 @@ La estructura de carpetas del proyecto es la siguiente:
 
     /   
     ├── api    
-    │   ├── controllers  
+    │   ├── controllers 
+    │   ├── middlewares  
     │   ├── routes          
     │   ├── utils
-    │   └── index.js    
-    ├── public  
-    ├── src
-    │   ├── components
-    │   ├── utils
-    │   │   └── requests.js
-    │   ├── App.jsx
-    │   └── main.jsx     
+    │   ├── index.js
+    │   ├── server.js
+    │   ├── database.js
+    │   └── package.json    
+    ├── web
+    │   ├── public  
+    │   ├── src
+    │   │   ├── components
+    │   │   ├── hooks
+    │   │   ├── contexts
+    │   │   ├── utils
+    │   │   ├── requests.js
+    │   │   ├── App.jsx
+    │   │   ├── main.jsx
+    │   └── package.json 
+    ├── README.md    
     └── package.json    
 
 ## Scripts
 
 Los siguientes scripts están definidos en `package.json`:
 
-- `dev`: Inicia el servidor de desarrollo utilizando Vite.
+- `dev:api`: Inicia el servidor de desarrollo utilizando Vite.
+- `dev:web`: Inicia la API con Node.js.
 - `build`: Construye el proyecto para producción.
-- `api`: Inicia la API con Node.js.
 - `lint`: Ejecuta ESLint para analizar el código y encontrar problemas.
-- `preview`: Previsualiza la aplicación construida.
 
 ## Instalación
 
 Para instalar las dependencias del proyecto, ejecuta:
 
+Desde la raíz del proyecto
 ```bash
+cd api
+npm install
+cd ../web
 npm install
 ```
 
@@ -46,13 +58,13 @@ npm install
 Para iniciar el servidor de desarrollo y la API simultáneamente, abre dos terminales. En la primera terminal, ejecuta:
 
 ```bash
-npm run dev
+npm run dev:web
 ```
 
 En la segunda terminal, ejecuta:
 
 ```bash
-npm run api
+npm run dev:api
 ```
 
 ### Build
@@ -72,12 +84,17 @@ npm run lint
 ### Frontend
 El frontend consta de formularios que imitan los documentos originales, pero con restricciones de caracteres para evitar deformaciones en el documento final.
 
-[ ] Autenticación y Autorización según documento.   
-[ ] Administración de Usuarios (Solo para cuenta de admin).     
-[ ] Administración de Documento (Solo para cuenta de admin).
+[&check;] Autenticación y Autorización según documento.   
+[&check;] Administración de Usuarios (Solo para cuenta de admin).     
+[&check;] Administración de Documento.  
+[ ] Ver modificación de otros usuarios IRT.  
+[ ] Historial de modificaciones de documento.  
+[ ] Filtro de documentos.  
+
 
 ### API
-La API recibe la información del formulario y la guarda en un archivo JSON. Cuando el usuario desea descargar el documento, se realiza una copia de un documento utilizado como plantilla y se insertan los datos del JSON. Finalmente, el documento modificado se descarga desde el cliente.
+La API recibe la información del formulario y la guarda en una base de datos mongoDB. Cuando el usuario desea descargar el documento, se realiza una copia de un documento utilizado como plantilla y se insertan los datos del documento seleccionado. Finalmente, el documento modificado es descargado desde el cliente.
 
 [&check;] Actualización de textos.  
-[] Actualización de checkbox.    
+[&check;] Actualización de checkbox.  
+[&check;] Token en solicitudes.    
