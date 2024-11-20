@@ -55,13 +55,33 @@ npm install
 
 ### Development
 
-Para iniciar el servidor de desarrollo y la API simultáneamente, abre dos terminales. En la primera terminal, ejecuta:
+Para iniciar el servidor web:
+
+Crear archivo .env con en carpeta `web`
+
+Ejemplo:
+```bash
+API_PORT=3000
+USER_MONGODB=usuarioMongoDB
+PASSWORD_MONGODB=passwordUsuarioMongoDB
+HOST_MONGODB=hostOurl
+DBNAME_MONGODB=nombreDataBase
+JWT_SECRET=tokenPrivado
+REFRESH_JWT_SECRET=refreshTokenPrivado
+APP_ENV=development
+```
 
 ```bash
 npm run dev:web
 ```
 
-En la segunda terminal, ejecuta:
+Crear archivo .env con en carpeta `api`
+
+Ejemplo:
+```bash
+VITE_API_URL=http://localhost:3000
+APP_ENV=development
+```
 
 ```bash
 npm run dev:api
