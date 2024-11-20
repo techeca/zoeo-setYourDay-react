@@ -5,6 +5,7 @@
     "type": "module",
     "scripts": {
       "dev": "node ./index.js --mode development",
+      "prod": "node ./index.js",
       "lint": "eslint . --ext js --report-unused-disable-directives --max-warnings 0"
     },
     "dependencies": {
