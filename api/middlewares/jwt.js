@@ -13,6 +13,10 @@ export function authenticateToken(req, res, next) {
 
     jwt.verify(token, SECRET_T, (err, user) => {
         if (err) {
+            if (err.name === 'TokenExpiredError') {
+                // Token expirado, permitir continuar para que el cliente lo maneje
+                return next();
+            }
             return res.status(403).json({ message: 'Token no válido' });
         }
         req.user = user; // Guarda el usuario decodificado en `req.user`

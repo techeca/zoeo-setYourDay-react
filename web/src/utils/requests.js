@@ -91,6 +91,7 @@ export const getAllDocuments = async (token) => {
         return jsonData;
     } catch (error) {
         console.error('Error al obtener los documentos:', error);
+        //return { message: 'Error al obtener los documentos.' }
     }
 }
 

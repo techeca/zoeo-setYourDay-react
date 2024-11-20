@@ -34,11 +34,11 @@ export const refreshToken = (req, res) => {
     if (!refreshToken) return res.status(401).json({ message: 'Refresh token no proporcionado' });
 
     // Validar el Refresh Token
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    jwt.verify(refreshToken, process.env.REFRESH_JWT_SECRET, (err, user) => {
         if (err) return res.status(403).json({ message: 'Refresh token no válido' });
 
         // Generar un nuevo Access Token
-        const accessToken = jwt.sign({ id: user.id, role: user.role }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+        const accessToken = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '15m' });
         res.json({ accessToken });
     });
 };
@@ -56,7 +56,7 @@ export const userLogin = async (req, res) => {
     const token = jwt.sign(
         { userId: user.id, role: user.role },
         process.env.JWT_SECRET,
-        { expiresIn: '1h' }
+        { expiresIn: '15m' }
     );
 
     const refreshToken = jwt.sign(
@@ -67,9 +67,10 @@ export const userLogin = async (req, res) => {
 
     res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        secure: true,
+        secure: process.env.APP_ENV === 'production',
         sameSite: 'strict',
-        path: '/api/auth/login'
+        path: '/api/auth/login',
+        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 días
     })
 
     // Responder con el token y los datos básicos del usuario
