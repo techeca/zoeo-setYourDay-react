@@ -1,6 +1,5 @@
 {
-  "name": "zoeo",
-  "private": true,
+  "name": "zoeo", 
   "version": "0.0.0",
   "type": "module",
   "scripts": {
