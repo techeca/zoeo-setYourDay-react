@@ -6,11 +6,12 @@
   "scripts": {
     "dev:api": "npm run dev --workspace api",
     "dev:web": "npm run dev --workspace web",
+    "prod:api": "npm run prod --workspace api",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "devDependencies": {
-    "eslint": "^8.57.0"
+    "eslint": "8.57.0"
   },
   "workspaces": [
     "api",
