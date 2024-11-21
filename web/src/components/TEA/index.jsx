@@ -38,11 +38,11 @@ export default function TEA({ profesional }) {
             <div className={`mr-3 bg-gray-3 p-3 h-[290px] rounded-md border-[0px] border-gray-50/10 sticky top-20`}>
                 <div className="menu-section w-[200px]">
                     <ul className="menu-items">
-                        <li className={`${section == 1 && `bg-gray-5`} menu-item`} onClick={() => changeSection(1)}>Datos de Identificación</li>
-                        <li className={`${section == 2 && `bg-gray-5`} menu-item`} onClick={() => changeSection(2)}>Sintesis de la Revaluación Diagnóstica</li>
-                        <li className={`${section == 3 && `bg-gray-5`} menu-item`} onClick={() => changeSection(3)}>Documentos del Proceso de Revaluación</li>
-                        <li className={`${section == 4 && `bg-gray-5`} menu-item`} onClick={() => changeSection(4)}>Revaluación Específica o Especializada</li>
-                        <li className={`${section == 5 && `bg-gray-5`} menu-item`} onClick={() => changeSection(5)}>Evaluación de los Apoyos</li>
+                        <li className={`${section == 1 && `bg-gray-2`} hover:bg-gray-2 menu-item`} onClick={() => changeSection(1)}>Datos de Identificación</li>
+                        <li className={`${section == 2 && `bg-gray-2`} hover:bg-gray-2 menu-item`} onClick={() => changeSection(2)}>Sintesis de la Revaluación Diagnóstica</li>
+                        <li className={`${section == 3 && `bg-gray-2`} hover:bg-gray-2 menu-item`} onClick={() => changeSection(3)}>Documentos del Proceso de Revaluación</li>
+                        <li className={`${section == 4 && `bg-gray-2`} hover:bg-gray-2 menu-item`} onClick={() => changeSection(4)}>Revaluación Específica o Especializada</li>
+                        <li className={`${section == 5 && `bg-gray-2`} hover:bg-gray-2 menu-item`} onClick={() => changeSection(5)}>Evaluación de los Apoyos</li>
                     </ul>
                 </div>
             </div>

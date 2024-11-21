@@ -68,7 +68,7 @@ export default function DocumentosProcReval() {
                 <label className="text-xl font-bold">Documentos</label>
                 <div className="w-full flex flex-col items-start pb-3">
                     <div>
-                        <label className="flex items-end cursor-pointer gap-2">
+                        <label className="flex items-end cursor-pointer gap-2 text-sm">
                             <input type="checkbox" className="checkbox" id="51" checked={formValues[51]} onChange={handleCheckboxChange} />
                             <span>Pauta de observación</span>
                         </label>
@@ -81,77 +81,77 @@ export default function DocumentosProcReval() {
                     </div>
                 </div>
 
-                <label className="text-lg font-bold">Certificados/Protocolos/Informes:</label>
+                <label className="font-bold">Certificados/Protocolos/Informes:</label>
 
                 <div className="w-full flex flex-wrap items-start mb-3 gap-1">
                     <div>
-                        <label className="flex items-end cursor-pointer gap-2">
+                        <label className="flex items-end cursor-pointer gap-2 text-sm">
                             <input type="checkbox" className="checkbox" id="53" checked={formValues[53]} onChange={handleCheckboxChange} />
                             <span>Escolar</span>
                         </label>
                     </div>
                     <div>
-                        <label className="flex items-end cursor-pointer gap-2">
+                        <label className="flex items-end cursor-pointer gap-2 text-sm">
                             <input type="checkbox" className="checkbox" id="54" checked={formValues[54]} onChange={handleCheckboxChange} />
                             <span>Social</span>
                         </label>
                     </div>
                     <div>
-                        <label className="flex items-end cursor-pointer gap-2">
+                        <label className="flex items-end cursor-pointer gap-2 text-sm">
                             <input type="checkbox" className="checkbox" id="55" checked={formValues[55]} onChange={handleCheckboxChange} />
                             <span>Neurológico</span>
                         </label>
                     </div>
                     <div>
-                        <label className="flex items-end cursor-pointer gap-2">
+                        <label className="flex items-end cursor-pointer gap-2 text-sm">
                             <input type="checkbox" className="checkbox" id="56" checked={formValues[56]} onChange={handleCheckboxChange} />
                             <span>Psicológico</span>
                         </label>
                     </div>
                     <div>
-                        <label className="flex items-end cursor-pointer gap-2">
+                        <label className="flex items-end cursor-pointer gap-2 text-sm">
                             <input type="checkbox" className="checkbox" id="57" checked={formValues[57]} onChange={handleCheckboxChange} />
                             <span>Fonoaudiológico</span>
                         </label>
                     </div>
                     <div>
-                        <label className="flex items-end cursor-pointer gap-2">
+                        <label className="flex items-end cursor-pointer gap-2 text-sm">
                             <input type="checkbox" className="checkbox" id="58" checked={formValues[58]} onChange={handleCheckboxChange} />
                             <span>Evaluación pedagógica</span>
                         </label>
                     </div>
                     <div>
-                        <label className="flex items-end cursor-pointer gap-2">
+                        <label className="flex items-end cursor-pointer gap-2 text-sm">
                             <input type="checkbox" className="checkbox" id="59" checked={formValues[59]} onChange={handleCheckboxChange} />
                             <span>Psicopedagógica</span>
                         </label>
                     </div>
                     <div>
-                        <label className="flex items-end cursor-pointer gap-2">
+                        <label className="flex items-end cursor-pointer gap-2 text-sm">
                             <input type="checkbox" className="checkbox" id="60" checked={formValues[60]} onChange={handleCheckboxChange} />
                             <span>Valoración de salud</span>
                         </label>
                     </div>
                     <div className='w-full flex gap-3 items-center'>
-                        <label className="flex items-end cursor-pointer gap-2">
+                        <label className="flex items-end cursor-pointer gap-2 text-sm">
                             <input type="checkbox" className="checkbox" id="61" checked={formValues[61]} onChange={handleCheckboxChange} />
                             <span>Examen médico especialista (señale cuál)</span>
                         </label>
-                        <input className="bg-gray-2 rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-9 capitalize" placeholder="" maxLength={16} type="text"
+                        <input className="bg-gray-2 text-sm rounded-md p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-9 capitalize" placeholder="" maxLength={16} type="text"
                             id="EMEsp" value={formValues.EMEsp || ""} onChange={handleInputChange} />
                     </div>
                     <div className='w-full flex gap-3 items-center'>
-                        <label className="flex items-end cursor-pointer gap-2">
+                        <label className="flex items-end cursor-pointer gap-2 text-sm">
                             <input type="checkbox" className="checkbox" id="63" checked={formValues[63]} onChange={handleCheckboxChange} />
                             <span>Otro(s) (especificar):</span>
                         </label>
-                        <input className="bg-gray-2 rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-9 capitalize" placeholder="" maxLength={16} type="text"
+                        <input className="bg-gray-2 text-sm rounded-md p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-9 capitalize" placeholder="" maxLength={16} type="text"
                             id="otrosEspecificar" value={formValues.otrosEspecificar || ""} onChange={handleInputChange} />
                     </div>
                     <div className='w-full flex gap-3 items-center'>
-                        <label className="flex items-center w-full cursor-pointer gap-2 ">
+                        <label className="flex items-center w-full cursor-pointer gap-2 text-sm">
                             <span>Señale el número de documentos que se adjuntan:</span>
-                            <input className="bg-gray-2 rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 uppercase placeholder:text-gray-9" placeholder="" maxLength={16} type="text"
+                            <input className="bg-gray-2 text-sm rounded-md p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 uppercase placeholder:text-gray-9" placeholder="" maxLength={16} type="text"
                                 id="numeroDocumento" value={formValues.numeroDocumento || ""} onChange={handleInputChange} />
                         </label>
                     </div>
