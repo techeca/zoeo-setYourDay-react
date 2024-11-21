@@ -5,9 +5,13 @@ const API_URL = import.meta.env.VITE_API_URL
 export const handleGenerateDocument = async (documento) => {
     //Solicitud para descargar documento
     try {
+        //const token = localStorage.getItem('token')
         const response = await apiFetch(`${API_URL}/api/process-document`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                //'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify({ documento: documento._id })
         });
 
@@ -33,10 +37,10 @@ export const handleUpdateDocument = async (key, documento, texto, docId) => {
         const token = localStorage.getItem('token')
         const response = await apiFetch(`${API_URL}/api/update-document`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-             },
+                //'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify({ key: key, documento: documento, texto: texto, docId: docId })
         });
 
@@ -58,9 +62,9 @@ export const handleCreateDocument = async (document) => {
         const token = localStorage.getItem('token')
         const response = await apiFetch(`${API_URL}/api/create-document`, {
             method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json', 
-                'Authorization': `Bearer ${token}`
+            headers: {
+                'Content-Type': 'application/json',
+                //'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ document: document })
         })
@@ -79,9 +83,9 @@ export const getAllDocuments = async (token) => {
     try {
         const response = await apiFetch(`${API_URL}/api/list-documents`, {
             method: 'GET',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                //'Authorization': `Bearer ${token}`
             }
         })
         if (!response.ok) {
@@ -99,9 +103,9 @@ export const getDocument = async (documentId, token) => {
     try {
         const response = await apiFetch(`${API_URL}/api/document/${documentId}`, {
             method: 'GET',
-            headers: { 
-                'Content-Type': 'application/json', 
-                'Authorization': `Bearer ${token}`
+            headers: {
+                'Content-Type': 'application/json',
+                //'Authorization': `Bearer ${token}`
             }
         });
         const jsonData = await response.json();
@@ -117,14 +121,14 @@ export const deleteDocument = async (documentId) => {
         const token = localStorage.getItem('token')
         const response = await apiFetch(`${API_URL}/api/delete-document`, {
             method: 'DELETE',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                //'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ id: documentId })
         });
-        
-        if(response.status === 401){
+
+        if (response.status === 401) {
             throw new Error('No tiene permisos')
         }
 
@@ -140,12 +144,12 @@ export const handleDeleteUser = async (id) => {
         const token = localStorage.getItem('token')
         const response = await apiFetch(`${API_URL}/api/admin/deleteProfesional`, {
             method: 'DELETE',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                //'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ id: id })
-        }); 
+        });
 
         if (response.ok) {
             const data = await response.json();
@@ -164,10 +168,10 @@ export const handleCreateUser = async (email, password, username) => {
         const token = localStorage.getItem('token')
         const response = await apiFetch(`${API_URL}/api/admin/registerProfesional`, {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-             },
+                //'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify({ email, password, username })
         });
         if (response.ok) {
@@ -188,9 +192,9 @@ export const getAllProfesional = async () => {
         const token = localStorage.getItem('token')
         const response = await apiFetch(`${API_URL}/api/auth/allProfesional`, {
             method: 'GET',
-            headers: { 
-                'Content-Type': 'application/json', 
-                'Authorization': `Bearer ${token}`
+            headers: {
+                'Content-Type': 'application/json',
+                //'Authorization': `Bearer ${token}`
             }
 
         })
