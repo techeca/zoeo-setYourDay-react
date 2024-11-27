@@ -1,7 +1,7 @@
 import { useDocument } from "../contexts/DocumentContext";
 import { deleteDocument, handleCreateDocument, handleGenerateDocument } from "../utils/requests";
 
-export default function useDocumentAction(){
+export default function useDocumentAction() {
     const { documentSelected, setDocumentData, resetDocument, setState, document } = useDocument();
 
     const generateDocument = async () => {
@@ -17,7 +17,6 @@ export default function useDocumentAction(){
     };
 
     const downloadDocument = () => {
-        console.log(document);
         if (document) {
             const token = localStorage.getItem('token')
             handleGenerateDocument(document, token);
@@ -29,11 +28,11 @@ export default function useDocumentAction(){
             const token = localStorage.getItem('token')
             const response = await deleteDocument(document._id, token);
             const { message } = response.json();
-            return { message } 
+            return { message }
         } catch (error) {
             return { message: error }
         }
-    }
+    };
 
     return { generateDocument, downloadDocument, resetDocument, delDocument };
 }
