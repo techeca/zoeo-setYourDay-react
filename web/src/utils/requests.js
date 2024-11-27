@@ -34,7 +34,7 @@ export const handleGenerateDocument = async (documento) => {
 
 export const handleUpdateDocument = async (key, documento, texto, docId) => {
     try {
-        const token = localStorage.getItem('token')
+        //const token = localStorage.getItem('token')
         const response = await apiFetch(`${API_URL}/api/update-document`, {
             method: 'POST',
             headers: {
@@ -79,7 +79,7 @@ export const handleCreateDocument = async (document) => {
     }
 }
 
-export const getAllDocuments = async (token) => {
+export const getAllDocuments = async () => {
     try {
         const response = await apiFetch(`${API_URL}/api/list-documents`, {
             method: 'GET',
@@ -99,13 +99,12 @@ export const getAllDocuments = async (token) => {
     }
 }
 
-export const getDocument = async (documentId, token) => {
+export const getDocument = async (documentId) => {
     try {
         const response = await apiFetch(`${API_URL}/api/document/${documentId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                //'Authorization': `Bearer ${token}`
             }
         });
         const jsonData = await response.json();
