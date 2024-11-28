@@ -1,4 +1,6 @@
-import React, { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect, useRef } from 'react';
+import { io } from 'socket.io-client';
+import { useAuth } from './AuthContext';
 
 // Creamos el contexto
 const DocumentContext = createContext();
@@ -13,8 +15,10 @@ export const DocumentProvider = ({ children }) => {
   const [document, setDocument] = useState(null); // Estado inicial vacío
   const [documentSelected, setDocumentSelected] = useState('');
   const [youDay, setYouDay] = useState(false);
-  const [state, setState] = useState('p1')
-  const [user, setUser] = useState(null)
+  const [state, setState] = useState('p1');
+  const { user } = useAuth()
+  const socketRef = useRef(null);
+  const [otherUsers, setOtherUsers] = useState([])
 
   // Función para actualizar el documento
   const setDocumentData = (newDocument) => {
@@ -22,14 +26,74 @@ export const DocumentProvider = ({ children }) => {
   };
 
   const setUserData = (newUser) => {
-    setUser(newUser)
+    setUser(newUser);
   };
 
   const resetDocument = () => {
     setYouDay(false);
     setDocumentSelected('');
-    setState('p1')
+    setState('p1');
+    setOtherUsers([]);
+    setDocument(null);
   };
+
+  const sendChanges = (key, texto, inputSelected) => {
+    if (socketRef.current) {
+      //const username = localStorage.getItem(user)
+      //console.log(user);
+      socketRef.current.emit('edit', { documentSelected, key, texto, user, inputSelected });
+    }
+  };
+
+  // Conectar al socket cuando el documento se seleccione
+  useEffect(() => {
+    if (!documentSelected) return;
+
+    if (!socketRef.current) {
+      socketRef.current = io(import.meta.env.VITE_API_URL);
+
+      // Unirse al documento
+      socketRef.current.emit('join', documentSelected);
+
+      // Manejar eventos
+      socketRef.current.on('init', (data) => {
+        setDocumentData(data);
+        setState('p2')
+      });
+
+      socketRef.current.on('update', (changes) => {
+        const { updatedDocument, otherUser, inputSelected } = changes
+        setDocumentData((prevDocument) => ({
+          ...prevDocument,
+          ...updatedDocument
+        }))
+        setOtherUsers((prevOtherUser) => {
+          const existingIndex = prevOtherUser.findIndex(
+            (entry) => entry.username === otherUser.username //entry.key !== inputSelected &&
+          );
+
+          if (existingIndex !== -1) {
+            // Si ya existe, actualiza la entrada
+            const updatedUsers = [...prevOtherUser];
+            updatedUsers[existingIndex] = { key: inputSelected, username: otherUser.username };
+            return updatedUsers;
+          }
+
+          // Si no existe, agrega una nueva entrada
+          return [...prevOtherUser, { key: inputSelected, username: otherUser.username }];
+        });
+      });
+    }
+
+    // Cleanup
+    return () => {
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
+    };
+
+  }, [documentSelected]);
 
   return (
     <DocumentContext.Provider value={{
@@ -42,8 +106,8 @@ export const DocumentProvider = ({ children }) => {
       resetDocument,
       state,
       setState,
-      user,
-      setUserData
+      sendChanges,
+      otherUsers
     }}>
       {children}
     </DocumentContext.Provider>
