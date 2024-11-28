@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
-import DocumentSelector from '../DocumentSelector';
+//import DocumentSelector from '../DocumentSelector';
 import { useDocument } from '../../contexts/DocumentContext';
 import useDocumentAction from '../../hooks/useDocumentAction';
 import TEA from '../TEA';
-import { plus } from '../../utils/icons';
+//import { plus } from '../../utils/icons';
 import { useAlert } from '../../contexts/AlertContext';
 import { deleteDocument } from '../../utils/requests';
 
@@ -73,20 +73,20 @@ export default function NewDocument() {
 
     return (
         <div className='pt-9'>
-            <div className={`card transition-all duration-300 ${youDay ? 'w-64 h-40' : 'h-32 w-32'} ${state === 'p1' ? 'opacity-100' : 'opacity-0 invisible hidden'} flex justify-center bg-gray-3 rounded-md p-3`}>
+            {/*<div className={`card transition-all duration-300 ${youDay ? 'w-64 h-40' : 'h-32 w-32'} ${state === 'p1' ? 'opacity-100' : 'opacity-0 invisible hidden'} flex justify-center bg-gray-3 rounded-md p-3`}>
                 <div className='card-body absolute pt-6 hover:opacity-70'>
                     <button className={`transition-opacity ${youDay ? 'opacity-0 invisible' : 'opacity-100'}`} onClick={() => setYouDay(true)}>
                         {plus}
                     </button>
                 </div>
                 <DocumentSelector />
-            </div>
+            </div>*/}
 
             {/* Document Display Section */}
             {state === 'p2' && (
                 <div className="flex flex-col gap-3 pt-3">
-                    <div className='flex gap-3 items-center flex-row'>
-                        <span className="badge badge-md badge-flat-primary">{document.nombreDocumento}</span>
+                    <div className='flex gap-3 items-center flex-row xl:ml-[237px] lg:ml-[237px] md:ml-[200px] ml-[200px]'>
+                        <span className="badge badge-md badge-flat-primary rounded-md py-2 text-xs px-3">{document.nombreDocumento}</span>
                         <button className="btn btn-sm btn-solid-success" onClick={() => downloadDocument()}>
                             <svg xmlns="http://www.w3.org/2000/svg" className='size-4' width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m7 12l5 5m0 0l5-5m-5 5V4M6 20h12"></path></svg>
                             <span className='ml-1'>
@@ -99,9 +99,11 @@ export default function NewDocument() {
                                 Eliminar
                             </span>
                         </label>
-                        <button className="btn btn-sm ml-auto hover:bg-gray-4 bg-gray-1" onClick={() => resetDocument()}>
-                            <svg xmlns="http://www.w3.org/2000/svg" className='size-5' width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m12 5l-7 7m0 0l7 7m-7-7h14"></path></svg>
-                        </button>
+                        <span className="tooltip tooltip-top ml-auto" data-tooltip="Volver">
+                            <button className="btn btn-sm hover:bg-gray-4 bg-gray-1" onClick={() => resetDocument()}>
+                                <svg xmlns="http://www.w3.org/2000/svg" className='size-5' width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m12 5l-7 7m0 0l7 7m-7-7h14"></path></svg>
+                            </button>
+                        </span>
                     </div>
 
                     <TEA profesional={data?.profesional} />
