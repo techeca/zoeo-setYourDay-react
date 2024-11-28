@@ -4,10 +4,10 @@ import { deleteDocument, handleCreateDocument, handleGenerateDocument } from "..
 export default function useDocumentAction() {
     const { documentSelected, setDocumentData, resetDocument, setState, document } = useDocument();
 
-    const generateDocument = async () => {
+    const generateDocument = async (documentName) => {
         try {
-            const token = localStorage.getItem('token')
-            const { document, message } = await handleCreateDocument(documentSelected, token);
+            //const token = localStorage.getItem('token')
+            const { document, message } = await handleCreateDocument(documentName);
             setDocumentData(document);
             setState('p2')
             return { message, id: document._id }
