@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --mode development",
+    "dev": "vite --mode development --host",
     "build": "vite build",
     "api": "node ./api/index.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -31,6 +31,7 @@
     "slate": "0.103.0",
     "slate-history": "0.100.0",
     "slate-react": "0.107.0",
+    "socket.io-client": "4.8.1",
     "unoconv": "0.1.2",
     "uuid": "11.0.2",
     "xmldom": "0.6.0"
