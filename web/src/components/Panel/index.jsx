@@ -1,5 +1,7 @@
-import { useNavigate, Link, useLocation } from "react-router-dom";
+//import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useAlert } from "../../contexts/AlertContext";
 import { DocumentProvider, useDocument } from "../../contexts/DocumentContext";
+import useDocumentAction from "../../hooks/useDocumentAction";
 import { getAllDocuments, getDocument } from "../../utils/requests";
 import NewDocument from "./NewDocument";
 import { useEffect, useState } from 'react';
@@ -7,28 +9,41 @@ import { useEffect, useState } from 'react';
 export default function Panel() {
   //const [youDay, setYouDay] = useState(false);
   const [allDocuments, setAllDocuments] = useState(false);
-  const { document, setDocumentData, setState, state, documentSelected } = useDocument();
-  const navigate = useNavigate()
-  let location = useLocation();
+  const { document, setDocumentData, setState, state, documentSelected, setDocumentSelected } = useDocument();
+  const [ documentName, setDocumentName] = useState('');
+  const { showAlert } = useAlert();
+  const { generateDocument } = useDocumentAction();
+  //const navigate = useNavigate()
+  //let location = useLocation();
 
   async function getDocuments() {
-    const token = localStorage.getItem('token')
-    const response = await getAllDocuments(token)
+    //const token = localStorage.getItem('token')
+    const response = await getAllDocuments()
     //console.log(response);
     setAllDocuments(response)
   }
 
   async function handleDocumentClick(documentId) {
-    //console.log(documentId);
-    const token = localStorage.getItem('token')
-    const { document } = await getDocument(documentId, token)
-    setDocumentData(document); // Actualizamos el documento en el contexto
-    //console.log(`Id de Documento: ${documentId}`);
-    //console.log(response);
-    //console.log(document);
-    setState('p2')
-
+    //const { document } = await getDocument(documentId)
+    //setDocumentData(document); // Actualizamos el documento en el contexto
+    setDocumentSelected(documentId)
+    //setState('p2')
   };
+
+  const handleGenerate = async () => {
+    
+    try {
+      const { message, id } = await generateDocument(documentName);
+      showAlert(message, 'success', id);
+      //await getDocuments();
+    } catch (error) {
+      showAlert('Error al crear el documento', 'error', 'Error')
+    }
+}
+
+  const handleClose = () => {
+    setDocumentName('');
+}
 
   useEffect(() => {
     getDocuments()
@@ -46,8 +61,11 @@ export default function Panel() {
       </div>*/}
 
         <div className={`${state === 'p1' ? 'opacity-100' : 'opacity-0 invisible hidden'} flex flex-wrap w-full justify-center select-none pt-6`}>
+          <label htmlFor="drawer-right" className="hover:scale-[102%] border-dashed flex justify-center h-[215px] items-center border-4 border-border card rounded-md m-3 p-4 cursor-pointer bg-gray-2 hover:opacity-100 opacity-80 transition-all duration-300 ease-in-out">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" className="size-12 mb-3"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-6-6h12"></path></svg>
+          </label>
           {allDocuments && allDocuments.map((document) => (
-            <div key={document._id} onClick={() => handleDocumentClick(document._id)} className="card rounded-md m-3 p-4 cursor-pointer hover:bg-gray-4 hover:opacity-100 opacity-80 transition-opacity duration-300 ease-in-out">
+            <div key={document._id} onClick={() => handleDocumentClick(document._id)} className="hover:scale-[102%] card rounded-md m-3 p-4 cursor-pointer hover:bg-gray-4 hover:opacity-100 opacity-80 transition-all duration-300 ease-in-out">
               <div className="flex justify-between">
                 <div className={`bg-gray-2 w-20 h-20 rounded-md`}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="size-20 opacity-10" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M7.39 16.539a8 8 0 1 1 9.221 0l2.083 4.76a.5.5 0 0 1-.459.701H5.765a.5.5 0 0 1-.459-.7zm6.735-.693l1.332-.941a6 6 0 1 0-6.913 0l1.331.941L8.058 20h7.884zM8.119 10.97l1.94-.485a2 2 0 0 0 3.882 0l1.94.485a4.002 4.002 0 0 1-7.762 0"></path></svg>
@@ -77,6 +95,32 @@ export default function Panel() {
               </div>
             </div>
           ))}
+        </div>
+
+        <input type="checkbox" id="drawer-right" className="drawer-toggle" />
+        <label className="overlay" htmlFor="drawer-right"></label>
+        <div className="drawer drawer-right">
+          <div className="drawer-content pt-10 flex flex-col h-full">
+            <label onClick={handleClose} htmlFor="drawer-right" className="btn btn-sm rounded-md btn-ghost absolute right-2 top-2">✕</label>
+            <div>
+              <h2 className="text-xl font-medium">Seleccionar Documento</h2>
+              {/* Document Dropdown */}
+              <div className='flex gap-3 mt-2'>
+                <select
+                  value={documentName}
+                  onChange={(e) => setDocumentName(e.target.value)}
+                  className='select w-full placeholder:text-white/30 bg-gray-2 border-0 text-sm text-white/50 py-2 px-2 rounded-md'
+                >
+                  <option value="" hidden disabled>Seleccionar</option>
+                  <option value="TEA">Trastorno del Espectro Autista</option>
+                </select>
+              </div>
+            </div>
+            <div className="h-full flex flex-row justify-end items-end gap-2">
+              <label onClick={handleClose} htmlFor="drawer-right" className="btn btn-ghost">Cancelar</label>
+              <label disabled={true} onClick={handleGenerate} htmlFor="drawer-right" className="btn btn-primary">Crear</label>
+            </div>
+          </div>
         </div>
 
       </div>
