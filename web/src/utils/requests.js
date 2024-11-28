@@ -57,16 +57,16 @@ export const handleUpdateDocument = async (key, documento, texto, docId) => {
     }
 };
 
-export const handleCreateDocument = async (document) => {
+export const handleCreateDocument = async (documentName) => {
     try {
-        const token = localStorage.getItem('token')
+        //const token = localStorage.getItem('token')
         const response = await apiFetch(`${API_URL}/api/create-document`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 //'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({ document: document })
+            body: JSON.stringify({ document: documentName })
         })
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
