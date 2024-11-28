@@ -5,8 +5,9 @@ import { useState, useEffect } from "react";
 
 export default function DatosIdentificacion({ profesional }) {
     const [listaPro, setListaPro] = useState([]);
-    const { document, documentSelected } = useDocument();
+    const { document, documentSelected, sendChanges, otherUsers } = useDocument();
     const { showAlert } = useAlert();
+    const [inputSelected, setInputSelected] = useState();
     const [formValues, setFormValues] = useState({
         nombreCompleto: "",
         fechaNacimiento: "",
@@ -65,6 +66,8 @@ export default function DatosIdentificacion({ profesional }) {
             ...prevValues,
             [id]: value,
         }));
+
+        sendChanges('datosIdentificacion', { [id]: value }, id)
     };
 
     const handleInputChange2 = (e) => {
@@ -99,12 +102,13 @@ export default function DatosIdentificacion({ profesional }) {
 
     async function updateDocument(e, key, values, title) {
         e.preventDefault();
-        //console.log(document);
         try {
-            const response = await handleUpdateDocument(key, document.nombreDocumento, values, document._id);
-            showAlert(response.message, 'success', title)
+            //const response = await handleUpdateDocument(key, document.nombreDocumento, values, document._id); 
+            sendChanges(key, values, inputSelected)
+            showAlert('Datos Guardados', 'success', title)
+            //console.log(otherUsers);
         } catch (error) {
-            showAlert(error.message, 'error', 'Error')
+            //showAlert(error.message, 'error', 'Error')
         }
     }
 
@@ -119,16 +123,29 @@ export default function DatosIdentificacion({ profesional }) {
         <div className="min-h-0">
 
             <label className="text-lg font-bold">Estudiante</label>
-            <form onSubmit={(e) => updateDocument(e, 'datosIdentificacion', formValues, 'Datos de Estudiante')} className="space-y-4 mt-2 mb-6 px-0">
+            <form /*onChange={(e) => updateDocument(e, 'datosIdentificacion', formValues, 'Datos de Estudiante')}*/ className="space-y-4 mt-2 mb-6 px-0">
                 <div className="w-full">
                     <label className="sr-only" htmlFor="nombreCompleto">Nombre Completo</label>
-                    <input className="bg-gray-2 w-full text-sm rounded-md p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 max-w-full placeholder:text-gray-9 uppercase" placeholder="Nombre Completo" maxLength={28} type="text" id="nombreCompleto" value={formValues.nombreCompleto || ""} onChange={handleInputChange} />
+                    <div className="relative">
+                        {/*icono de usuario editando campo*/}
+                        <div className="absolute right-2 top-1/2 -translate-y-1/2 flex space-x-[-9px]">
+                            {otherUsers.length > 0 && otherUsers.filter(ou => ou.key === 'nombreCompleto').map(u =>
+                                <span key={u.username} className="tooltip tooltip-top" data-tooltip={u.username}>
+                                    <div className={` avatar avatar-sm bg-gray-5 rounded-full p-1 text-xs transition-all duration-300 ease-in-out`}> {/*`${otherUsers?.[`nombreCompleto`] ? 'opacity-100 scale-100' : 'opacity-0 scale-75'*/}
+                                        <img src="https://i.pravatar.cc/150" alt="avatar" />
+                                    </div>
+                                </span>
+                            )}
+                        </div>
+
+                        <input onClick={(e) => setInputSelected(e.target.id)} className={`bg-gray-2 ${otherUsers.length > 0 && otherUsers.filter(u => u.key === 'nombreCompleto').length > 0 > 0 ? `border-red-5` : `border-gray-3`} border-2 w-full text-sm rounded-md p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 max-w-full placeholder:text-gray-9 uppercase transition-colors duration-300`} placeholder="Nombre Completo" maxLength={28} type="text" id="nombreCompleto" value={formValues.nombreCompleto || ""} onChange={handleInputChange} />
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                         <label className="sr-only" htmlFor="fechaNacimiento">Fecha de Nacimiento</label>
-                        <input className="bg-gray-2 w-full text-sm rounded-md p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-9" placeholder="FECHA DE NACIMIENTO (dd/mm/aaaa)" maxLength={10} type="text" id="fechaNacimiento" value={formValues.fechaNacimiento || ""} onChange={handleInputChange} />
+                        <input onClick={(e) => setInputSelected(e.target.id)} className="bg-gray-2 w-full text-sm rounded-md p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-9" placeholder="FECHA DE NACIMIENTO (dd/mm/aaaa)" maxLength={10} type="text" id="fechaNacimiento" value={formValues.fechaNacimiento || ""} onChange={handleInputChange} />
                     </div>
 
                     <div>
