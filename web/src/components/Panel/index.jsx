@@ -60,12 +60,13 @@ export default function Panel() {
         <div className="flex h-32 w-32 items-center justify-center border-2 rounded-md border-dashed border-border bg-gray-1">+</div>
       </div>*/}
 
-        <div className={`${state === 'p1' ? 'opacity-100' : 'opacity-0 invisible hidden'} flex flex-wrap w-full justify-center select-none pt-6`}>
+        <div className={`${state === 'p1' ? 'opacity-100' : 'opacity-0 hidden'} flex flex-wrap w-full justify-center select-none pt-6 transition-opacity duration-300 ease-in-out`}>
           <label htmlFor="drawer-right" className="hover:scale-[102%] border-dashed flex justify-center h-[215px] items-center border-4 border-border card rounded-md m-3 p-4 cursor-pointer bg-gray-2 hover:opacity-100 opacity-80 transition-all duration-300 ease-in-out">
             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" className="size-12 mb-3"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-6-6h12"></path></svg>
           </label>
+          {console.log(state)}
           {allDocuments && allDocuments.map((document) => (
-            <div key={document._id} onClick={() => handleDocumentClick(document._id)} className="hover:scale-[102%] card rounded-md m-3 p-4 cursor-pointer hover:bg-gray-4 hover:opacity-100 opacity-80 transition-all duration-300 ease-in-out">
+            <div key={document._id} onClick={() => handleDocumentClick(document._id)} className="opacity-0 animate-fadeInCard card rounded-md m-3 p-4 cursor-pointer hover:bg-gray-4 hover:opacity-100 ">
               <div className="flex justify-between">
                 <div className={`bg-gray-2 w-20 h-20 rounded-md`}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="size-20 opacity-10" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M7.39 16.539a8 8 0 1 1 9.221 0l2.083 4.76a.5.5 0 0 1-.459.701H5.765a.5.5 0 0 1-.459-.7zm6.735-.693l1.332-.941a6 6 0 1 0-6.913 0l1.331.941L8.058 20h7.884zM8.119 10.97l1.94-.485a2 2 0 0 0 3.882 0l1.94.485a4.002 4.002 0 0 1-7.762 0"></path></svg>
