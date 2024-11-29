@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react"
-import { Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { DocumentProvider } from "./contexts/DocumentContext"
 import { AlertProvider } from "./contexts/AlertContext"
-//import { useAlert } from "./contexts/AlertContext"
 import Sidebar from "./components/Sidebar"
 import { useAuth } from "./contexts/AuthContext"
 import Alert from "./components/Alert"
 
 function App() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { user } = useAuth();
 
   useEffect(() => {
-    if (!user) {
+    {/*if (!user) {
       navigate('/login')
     } else {
+      navigate('/panel')
+    }*/}
+    if (!user) {
+      navigate('/login')
+    }
+    if(location.pathname === '/'){
       navigate('/panel')
     }
   }, [user])
