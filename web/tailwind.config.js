@@ -16,6 +16,20 @@ export default {
         'gradient-line-purple': 'repeating-linear-gradient( 45deg, #454070, #866ec1 1px, rgba(245, 245, 245, 0) 3px, rgba(245, 245, 245, 0) 10px )',
         'gradient-line-gray': 'repeating-linear-gradient( 45deg, #484848, #3a3a3a 1px, rgba(245, 245, 245, 0) 3px, rgba(245, 245, 245, 0) 10px )',
       },
+      animation: {
+        fadeInCard: 'fadeInCard 0.5s ease-in-out forwards ',
+        fadeInDocument: 'fadeInDocument 0.5s ease-in-out forwards ',
+      },
+      keyframes: {
+        fadeInCard: {
+          '0%': { opacity: 0, transform: 'scale(0.95)' },
+          '100%': { opacity: 1, transform: 'scale(1)' },
+        },
+        fadeInDocument: {
+          '0%': { opacity: 0, transform: 'translateY(20px)' },
+          '100%': { opacity: 1, transform: 'translateY(0)' },
+        }
+      },
     },
   },
   plugins: [rippleui],
