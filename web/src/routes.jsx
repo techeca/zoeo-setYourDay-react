@@ -1,12 +1,14 @@
 
-import Panel from "./components/Panel"
-import Login from "./components/Login"
-import Profile from "./components/Profile"
-import Team from "./components/Team"
+import Panel from "./pages/User/Panel"
+import Login from "./pages/Login"
+import Document from "./pages/User/Document"
+import Profile from "./pages/User/Profile"
+import Team from "./pages/User/Team"
 import App from "./App"
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary"
-import Admin from "./components/Admin"
-import Accounts from "./components/Admin/Accounts"
+//import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary"
+import Admin from "./pages/Admin"
+import Users from "./pages/Admin/Users"
+import { getDocument } from "./utils/requests"
 
 const router = [
     {
@@ -14,13 +16,24 @@ const router = [
         element: <App />,
         children: [
             {
+                path: 'login',
+                element: <Login />,
+                //errorElement: <ErrorBoundary />
+            },
+            {
                 path: 'panel',
                 element: <Panel />
             },
             {
-                path: 'login',
-                element: <Login />,
-                errorElement: <ErrorBoundary />
+                path: 'document',
+                element: <Document />
+            },
+            {
+                path: 'document/:documentId',
+                element: <Document />,
+                loader: async ( {params} ) => {
+                    return params.documentId
+                }
             },
             {
                 path: 'profile',
@@ -36,7 +49,7 @@ const router = [
                 children: [
                     {
                         path: 'accounts',
-                        element: <Accounts />
+                        element: <Users />
                     }
                 ]
             }

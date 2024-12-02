@@ -34,7 +34,7 @@ export default function TEA({ profesional }) {
     }, [showScrollTopButton]); // Dependencia de `showScrollTopButton`
 
     return (
-        <div className="flex pb-6">
+        <div className={`flex pb-6`}>
             <div className={`mr-3 bg-gray-3 p-3 h-[290px] rounded-md border-[0px] border-gray-50/10 sticky top-20`}>
                 <div className="menu-section w-[200px]">
                     <ul className="menu-items">
@@ -64,7 +64,7 @@ export default function TEA({ profesional }) {
                             Evaluación de los Apoyos
                         </div>
                     </div>*/    }
-                <div className={`${state == 'p2' ? `opacity-100` : `overflow-hidden opacity-0`} xl:w-[990px] lg:w-[760px] md:w-[510px]  w-[480px] p-6 bg-gray-3 rounded-md border-[0px] border-gray-50/10`}>
+                <div className={`animate-fadeInDocument xl:w-[990px] lg:w-[760px] md:w-[510px] w-[480px] p-6 bg-gray-3 rounded-md border-[0px] border-gray-50/10`}>
                     <div className="">
                         {section == 1 && <DatosIdentificacion profesional={profesional} />
                         }

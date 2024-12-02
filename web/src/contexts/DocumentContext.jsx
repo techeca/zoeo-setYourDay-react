@@ -58,7 +58,7 @@ export const DocumentProvider = ({ children }) => {
       // Manejar eventos
       socketRef.current.on('init', (data) => {
         setDocumentData(data);
-        setState('p2')
+        //setState('p2')
       });
 
       socketRef.current.on('update', (changes) => {

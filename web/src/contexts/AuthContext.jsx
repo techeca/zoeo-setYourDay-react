@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { handleUserLogin } from '../utils/requests';
+import { useNavigate } from 'react-router-dom';
 
 // Crear el contexto
 const AuthContext = createContext();
@@ -7,6 +8,7 @@ const AuthContext = createContext();
 // Crear el proveedor
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null); // Estado para almacenar los datos del usuario
+    const navigate = useNavigate();
 
     // Función de inicio de sesión
     const login = async (email, password) => {
@@ -38,6 +40,16 @@ export const AuthProvider = ({ children }) => {
             setUser(JSON.parse(storedUser));
         }
     }, []);
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login')
+          } else {
+            if (location.pathname === '/' || location.pathname === '/login') {
+              navigate('/panel')
+            }
+        }
+    }, [user])
 
     return (
         <AuthContext.Provider value={{ user, login, logout }}>

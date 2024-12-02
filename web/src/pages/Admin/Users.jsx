@@ -1,8 +1,8 @@
-import { useAlert } from "../../../contexts/AlertContext"
-import { getAllProfesional, handleCreateUser, handleDeleteUser } from "../../../utils/requests"
+import { useAlert } from "../../contexts/AlertContext";
+import { getAllProfesional, handleCreateUser, handleDeleteUser } from "../../utils/requests";
 import { useEffect, useState, useRef } from "react";
 
-export default function Accounts() {
+export default function Users() {
     const { showAlert } = useAlert();
     const [formValues, setFormValues] = useState({
         nombre: "",
