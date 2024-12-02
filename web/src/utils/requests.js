@@ -188,7 +188,7 @@ export const handleCreateUser = async (email, password, username) => {
 
 export const getAllProfesional = async () => {
     try {
-        const token = localStorage.getItem('token')
+        //const token = localStorage.getItem('token')
         const response = await apiFetch(`${API_URL}/api/auth/allProfesional`, {
             method: 'GET',
             headers: {
