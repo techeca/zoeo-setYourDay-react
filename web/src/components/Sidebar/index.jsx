@@ -64,10 +64,10 @@ export default function Sidebar() {
                   <div className="menu-item-collapse mt-2">
                     <div className="min-h-0">
                       <Link to={"/profile"}>
-                        <label className={`menu-item ml-6 ${location.pathname == '/profile' && `menu-active`}`}>Perfil</label>
+                        <span className={`menu-item ml-6 ${location.pathname == '/profile' && `menu-active`}`}>Perfil</span>
                       </Link>
-                      <label className="menu-item menu-item-disabled ml-6">Cambiar Email</label>
-                      <label className="menu-item menu-item-disabled ml-6">Cambiar Password</label>
+                      <span className="menu-item menu-item-disabled ml-6">Cambiar Email</span>
+                      <span className="menu-item menu-item-disabled ml-6">Cambiar Password</span>
                     </div>
                   </div>
                 </li>
@@ -99,17 +99,16 @@ export default function Sidebar() {
         <section className="sidebar-footer justify-end bg-gray-2 pt-2">
           <div className="divider my-0"></div>
           <div className="dropdown z-50 flex h-fit w-full cursor-pointer hover:bg-gray-4">
-            <label className="whites mx-2 flex h-fit w-full cursor-pointer p-0 hover:bg-gray-4" tabIndex="0">
+            <button className="whites mx-2 flex h-fit w-full cursor-pointer p-0 hover:bg-gray-4" tabIndex="0">
               <div className="flex flex-row gap-4 p-4">
                 <div className="avatar-square avatar avatar-md">
                   <img src="https://i.pravatar.cc/150?img=30" alt="avatar" />
                 </div>
-
                 <div className="flex flex-col">
                   <span>Elizabeth Cortes</span>
                 </div>
               </div>
-            </label>
+            </button>
             <div className="dropdown-menu-right-top dropdown-menu ml-2 m-2">
               <Link to={"/profile"} className="dropdown-item text-sm">Perfil</Link>
               <a tabIndex="-1" className="dropdown-item menu-item-disabled text-sm">Cambiar email</a>
