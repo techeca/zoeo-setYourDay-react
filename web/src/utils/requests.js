@@ -1,4 +1,4 @@
-import apiFetch from "./apiFetch";
+import { apiFetch } from "./apiFetch";
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -117,7 +117,7 @@ export const getDocument = async (documentId) => {
 
 export const deleteDocument = async (documentId) => {
     try {
-        const token = localStorage.getItem('token')
+        //const token = localStorage.getItem('token')
         const response = await apiFetch(`${API_URL}/api/delete-document`, {
             method: 'DELETE',
             headers: {
