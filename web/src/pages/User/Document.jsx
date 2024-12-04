@@ -16,7 +16,7 @@ export default function Document() {
 
     const handleBack = () => {
         resetDocument();
-        navigate('/panel')
+        navigate('/panel');
     }
 
     useEffect(() => {
@@ -30,17 +30,17 @@ export default function Document() {
         document && <div className='pt-9'>
             {/* Document Display Section */}
             {<div className="flex flex-col gap-3 pt-3">
-                <div className='flex gap-3 items-center flex-row xl:ml-[237px] lg:ml-[237px] md:ml-[200px] ml-[200px]'>
-                    <span className="badge badge-md badge-flat-primary rounded-md py-2 text-xs px-3">{document.nombreDocumento}</span>
+                <div className='flex gap-3 items-center flex-row xl:ml-[237px] lg:ml-[237px] md:ml-[237px] ml-[200px]'>
+                    <span className="badge badge-md badge-flat-primary rounded-md py-2 text-xs px-3 select-none">{document.nombreDocumento}</span>
                     <button className="btn btn-sm btn-solid-success" onClick={() => downloadDocument()}>
                         <svg xmlns="http://www.w3.org/2000/svg" className='size-4' width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m7 12l5 5m0 0l5-5m-5 5V4M6 20h12"></path></svg>
-                        <span className='ml-1'>
+                        <span className={`ml-1 lg:block md:hidden sm:hidden hidden`}>
                             Descargar Documento
                         </span>
                     </button>
                     <label className="btn btn-sm btn-solid-error" htmlFor="modal-2">
                         <svg xmlns="http://www.w3.org/2000/svg" className='size-4' width="1em" height="1em" viewBox="0 0 24 24" ><path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M14 11v6m-4-6v6M6 7v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7M4 7h16M7 7l2-4h6l2 4"></path></svg>
-                        <span className='ml-1'>
+                        <span className={`ml-1 lg:block md:hidden sm:hidden hidden`}>
                             Eliminar
                         </span>
                     </label>

@@ -35,7 +35,7 @@ export default function TEA({ profesional }) {
 
     return (
         <div className={`flex pb-6`}>
-            <div className={`mr-3 bg-gray-3 p-3 h-[290px] rounded-md border-[0px] border-gray-50/10 sticky top-20`}>
+            <div className={`hidden md:block mr-3 bg-gray-3 p-3 h-[290px] rounded-md border-[0px] border-gray-50/10 sticky top-20`}>
                 <div className="menu-section w-[200px]">
                     <ul className="menu-items">
                         <li className={`${section == 1 && `bg-gray-2`} hover:bg-gray-2 menu-item`} onClick={() => changeSection(1)}>Datos de Identificación</li>
@@ -64,8 +64,8 @@ export default function TEA({ profesional }) {
                             Evaluación de los Apoyos
                         </div>
                     </div>*/    }
-                <div className={`animate-fadeInDocument xl:w-[990px] lg:w-[760px] md:w-[510px] w-[480px] p-6 bg-gray-3 rounded-md border-[0px] border-gray-50/10`}>
-                    <div className="">
+                <div className={`animate-fadeInDocument xl:w-[990px] lg:w-[750px] md:w-[490px] w-[480px] p-6 bg-gray-3 rounded-md border-[0px] border-gray-50/10`}>
+                    <>
                         {section == 1 && <DatosIdentificacion profesional={profesional} />
                         }
                         {section == 2 && <SintesisRevalDiag />
@@ -76,7 +76,7 @@ export default function TEA({ profesional }) {
                         }
                         {section == 5 && <EvaluacionApoyos />
                         }
-                    </div>
+                    </>
                 </div>
             </div>
             <button

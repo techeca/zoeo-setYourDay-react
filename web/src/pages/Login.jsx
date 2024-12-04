@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { handleInputChange } from "../utils/formsFunctions";
+import { lock, user as userIcon } from '../utils/icons'
 
 export default function Login() {
     const navigate = useNavigate()
@@ -39,47 +40,46 @@ export default function Login() {
     }
 
     return (
-        !user && <div className="mx-auto flex w-full max-w-xl flex-col mt-24">
-            <div className="bg-gray-3 p-6 rounded-lg">
-                <div className="flex flex-col items-center">
-                    <h1 className="text-3xl font-semibold">Ingreso</h1>
-                </div>
-                <form onSubmit={(e) => handleLogin(e)}
-                    className="form-group mt-6">
-
-                    <div className="form-field">
-                        <label className="form-label">Correo</label>
+        !user &&
+        <div className="shadow-lg border-[1px] rounded-md border-gray-5 bg-gray-3 p-4 mt-28 w-[330px] xl:w-[480px] md:w-[400px]">
+            <h1 className="text-3xl font-semibold text-center">Ingreso</h1>
+            <form onSubmit={(e) => handleLogin(e)} className="form-group flex gap-6">
+                <div className="form-field">
+                    <label htmlFor="correo" className="form-label text-lg font-semibold">Correo</label>
+                    <div className="form-control relative flex items-center w-full">
+                        {userIcon}
                         <input id='correo'
                             type="email"
-                            className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-10"
                             placeholder="correo@email.com"
+                            className="bg-gray-2 w-full rounded-md p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-10 placeholder:text-gray-10"
                             value={formValues.correo || ""}
-                            onChange={(e) => handleInputChange(e, setFormValues)}/>
+                            onChange={(e) => handleInputChange(e, setFormValues)}
+                        />
                     </div>
-
-                    <div className="form-field">
-                        <label className="form-label">Contraseña</label>
-                        <div className="form-control">
-                            <input id='contrasena'
-                                placeholder="******"
-                                type="password"
-                                value={formValues.contrasena || ""}
-                                onChange={(e) => handleInputChange(e, setFormValues)}
-                                className="bg-gray-2 w-full rounded-xl p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-3 placeholder:text-gray-10" />
-                        </div>
+                </div>
+                <div className="form-field">
+                    <label htmlFor="contrasena" className="form-label text-lg font-semibold self-start">Contraseña</label>
+                    <div className="form-control relative flex items-center w-full">
+                        {lock}
+                        <input id="contrasena"
+                            type="password"
+                            placeholder="******"
+                            className="bg-gray-2 w-full rounded-md p-2 hover:bg-gray-1 focus:bg-gray-1 outline-none pl-10 placeholder:text-gray-10"
+                            value={formValues.contrasena || ""}
+                            onChange={(e) => handleInputChange(e, setFormValues)}
+                        />
                     </div>
-
-                    <div className="form-field pt-5 pb-3">
-                        <div className="form-control justify-between">
-                            <button
-                                type="submit"
-                                className="btn btn-primary w-full">
-                                Enviar
-                            </button>
-                        </div>
+                </div>
+                <div className="form-field">
+                    <div className="form-control justify-between">
+                        <button
+                            type="submit"
+                            className="btn btn-primary w-full rounded-md opacity-80 hover:opacity-100 transition-opacity duration-200 ease-in">
+                            Enviar
+                        </button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     )
 }
