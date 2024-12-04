@@ -1,6 +1,7 @@
 import { createContext, useState, useContext, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 import { useAuth } from './AuthContext';
+import { prepareSocketConnection } from '../utils/apiFetch';
 
 // Creamos el contexto
 const DocumentContext = createContext();
@@ -49,43 +50,35 @@ export const DocumentProvider = ({ children }) => {
   useEffect(() => {
     if (!documentSelected) return;
 
-    if (!socketRef.current) {
-      socketRef.current = io(import.meta.env.VITE_API_URL);
-
-      // Unirse al documento
-      socketRef.current.emit('join', documentSelected);
-
-      // Manejar eventos
-      socketRef.current.on('init', (data) => {
+    const onSocketSetup = (socket) => {
+      socket.on("init", (data) => {
         setDocumentData(data);
-        //setState('p2')
       });
 
-      socketRef.current.on('update', (changes) => {
-        const { updatedDocument, otherUser, inputSelected } = changes
+      socket.on("update", (changes) => {
+        const { updatedDocument, otherUser, inputSelected } = changes;
         setDocumentData((prevDocument) => ({
           ...prevDocument,
-          ...updatedDocument
-        }))
+          ...updatedDocument,
+        }));
         setOtherUsers((prevOtherUser) => {
           const existingIndex = prevOtherUser.findIndex(
-            (entry) => entry.username === otherUser.username //entry.key !== inputSelected &&
+            (entry) => entry.username === otherUser.username
           );
 
           if (existingIndex !== -1) {
-            // Si ya existe, actualiza la entrada
             const updatedUsers = [...prevOtherUser];
             updatedUsers[existingIndex] = { key: inputSelected, username: otherUser.username };
             return updatedUsers;
           }
 
-          // Si no existe, agrega una nueva entrada
           return [...prevOtherUser, { key: inputSelected, username: otherUser.username }];
         });
       });
-    }
+    };
 
-    // Cleanup
+    prepareSocketConnection(socketRef, documentSelected, onSocketSetup);
+
     return () => {
       if (socketRef.current) {
         socketRef.current.disconnect();
